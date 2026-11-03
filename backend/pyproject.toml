@@ -1,0 +1,37 @@
+[project]
+name = "swachh-safar-backend"
+version = "2.0.0"
+description = "Swachh Safar railway operations API"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "sqlalchemy>=2.0.36",
+  "psycopg[binary]>=3.2",
+  "alembic>=1.13",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.5",
+  "firebase-admin>=6.5",
+  "python-multipart>=0.0.9",
+  "httpx>=0.27",
+  "filetype>=1.2",
+  "email-validator>=2.1",
+  "tzdata>=2024.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pgserver>=0.1.4"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 140
+
+[tool.ruff.lint]
+select = ["F", "E9", "B"]
+ignore = ["B008", "B904", "B905"]  # FastAPI Depends defaults; explicit `from exc` used where it matters
+
+[tool.ruff.lint.per-file-ignores]
+"app/models/__init__.py" = ["F401"]  # re-export module

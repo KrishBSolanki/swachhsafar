@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-white text-slate-900 antialiased; }
+}
+
+@layer components {
+  .card { @apply rounded-3xl bg-white p-5 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_8px_24px_rgba(15,23,42,0.06)] ring-1 ring-slate-100 sm:p-6; }
+  .input {
+    @apply block h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-base text-slate-900
+      placeholder:text-slate-400 shadow-sm transition outline-none
+      focus:border-teal-600 focus:ring-4 focus:ring-teal-600/15 disabled:bg-slate-50 disabled:text-slate-500;
+  }
+  .input-error { @apply border-red-400 focus:border-red-500 focus:ring-red-500/15; }
+  .btn-primary {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-teal-700 px-5 text-base font-semibold
+      text-white shadow-sm shadow-teal-900/20 transition hover:bg-teal-800 active:scale-[0.99]
+      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply inline-flex h-10 items-center gap-2 rounded-xl bg-white px-3.5 text-sm font-semibold text-teal-800
+      ring-1 ring-slate-200 transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-teal-700
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-link { @apply text-sm font-semibold text-teal-700 underline-offset-2 hover:underline; }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "swachh-safar-pwa",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "preview:lan": "cross-env PREVIEW_HTTPS=1 vite preview --host --port 4173 --strictPort",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg",
+    "test:live": "cross-env LIVE_FIREBASE=1 vitest run tests/integration"
+  },
+  "dependencies": {
+    "@sqlite.org/sqlite-wasm": "^3.54.1-build1",
+    "firebase": "^13.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/vite": "^4.3.4",
+    "@vite-pwa/assets-generator": "^2.0.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "cross-env": "^10.1.0",
+    "google-auth-library": "^9.15.1",
+    "tailwindcss": "^4.3.4",
+    "vite": "^8.3.5",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0",
+    "workbox-core": "^7.4.1",
+    "workbox-precaching": "^7.4.1",
+    "workbox-routing": "^7.4.1"
+  }
+}

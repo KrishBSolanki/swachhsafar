@@ -1,0 +1,23 @@
+node_modules/
+dist/
+dev-dist/
+.env.local
+.env.*.local
+test-results/
+playwright-report/
+
+# Python backend
+backend/.venv/
+backend/.venv_new/
+backend/.env
+backend/var/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Credentials: never commit or bundle
+.cert/
+*.pem
+*firebase-adminsdk*.json
+client_secret_*.json
+google-services.json
