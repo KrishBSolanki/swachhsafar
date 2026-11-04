@@ -21,20 +21,24 @@ export default defineConfig(({ isPreview }) => ({
       srcDir: 'src/pwa',
       filename: 'serviceWorker.js',
       injectRegister: false,
-      manifestFilename: 'manifest.json',
+      manifestFilename: 'manifest.webmanifest',
       injectManifest: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,wasm,json}'],
+        globPatterns: ['**/*.{js,mjs,css,html,svg,png,ico,wasm,json,webmanifest,woff2}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
       manifest: {
         id: '/',
         name: 'Swachh Safar',
         short_name: 'Swachh Safar',
-        description: 'Offline-first Swachh Safar app',
+        description: 'Swachh Safar on-board cleanliness operations: attendance, inspections, feedback, complaints and inventory, offline first.',
+        lang: 'en-IN',
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        orientation: 'portrait',
+        // Phones are used in portrait; tablets and landscape-locked devices keep working.
+        orientation: 'any',
+        categories: ['business', 'productivity'],
+        prefers_related_applications: false,
         background_color: '#ffffff',
         theme_color: '#0f766e',
         icons: [

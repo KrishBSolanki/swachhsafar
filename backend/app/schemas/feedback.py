@@ -167,6 +167,10 @@ class RailwayFeedbackOut(ReadModel):
     journey_day: int
     comments: str | None
     verification_status: str
+    # When / by whom the current verification_status was set (null until reviewed). Devices use verified_at
+    # to order status updates, so an older response never overwrites a newer review.
+    verified_at: datetime | None = None
+    verified_by_id: uuid.UUID | None = None
     ratings: list[RatingOut]
     created_by_id: uuid.UUID
     device_timestamp: datetime

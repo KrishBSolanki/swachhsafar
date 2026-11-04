@@ -3,6 +3,7 @@ import { DivisionPicker, useDivision } from '../../app/division.jsx';
 import { Badge, DataState, ErrorNote, Loading, PageHeader, Panel, STATE_TONE, Stat, Table, fmtDate, fmtDateTime, label } from '../../components/ui.jsx';
 import { daysAgo, today } from '../../utils/capture.js';
 import { navigate } from '../../app/router.js';
+import { OfflineReadiness } from '../../components/PwaPanels.jsx';
 
 function DivisionStats({ divisionId }) {
   const res = useResource(divisionId ? `/dashboard/divisions/${divisionId}` : null);
@@ -140,6 +141,7 @@ export default function Dashboard() {
           {can('reports.read') && <AttendanceOverview divisionId={id} />}
           {can('reports.read') && <ComplaintsSummary divisionId={id} />}
           <RecentActivity divisionId={id} />
+          <OfflineReadiness />
         </div>
       </div>
     </>

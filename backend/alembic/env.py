@@ -1,9 +1,9 @@
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import create_engine
 
 from app.config import get_settings
+from app.db import make_engine, write_intent
 from app.models import Base
 
 config = context.config
@@ -24,9 +24,14 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    engine = create_engine(_url())
-    with engine.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata, compare_type=True)
+    # Same engine setup as the app (SQLite: foreign keys, WAL, busy timeout, BEGIN IMMEDIATE). The migration
+    # transaction holds the write lock, so two concurrent `alembic upgrade` runs cannot both apply a revision.
+    engine = make_engine(_url())
+    with write_intent(), engine.connect() as connection:
+        context.configure(connection=connection, target_metadata=target_metadata, compare_type=True,
+                          render_as_batch=connection.dialect.name == "sqlite",
+                          # SQLite DDL is transactional: the whole upgrade commits or rolls back as one unit.
+                          transactional_ddl=True)
         with context.begin_transaction():
             context.run_migrations()
     engine.dispose()

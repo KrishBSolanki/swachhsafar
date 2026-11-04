@@ -1,28 +1,27 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Logo from '../components/Logo.jsx';
 import Toasts, { useToasts } from '../components/Toasts.jsx';
 import {
-  ChartIcon, ChatIcon, ClipboardIcon, DatabaseGridIcon, FlagIcon, HomeIcon, LogoutIcon, MenuIcon, RefreshIcon,
+  BoxIcon, ChartIcon, ChatIcon, ClipboardIcon, DatabaseGridIcon, FlagIcon, HomeIcon, LogoutIcon, MenuIcon, RefreshIcon,
   Spinner, TrainIcon, UsersIcon, XIcon,
 } from '../components/Icons.jsx';
 import { useNetworkStatus } from '../hooks/useNetworkStatus.js';
 import { ROLE_NAMES, useQueueState, useSession } from './session.jsx';
+import { MODULES } from './modules.js';
 import { DEMO_MODE } from '../services/demoApi.js';
+import { InstallBanner, UpdateBanner } from '../components/PwaPanels.jsx';
+import { requestPersistence } from '../pwa/pwaState.js';
 
 const ToastContext = createContext(() => {});
 export const useNotify = () => useContext(ToastContext);
 
-// `any`: the item shows when the user holds at least one of these permissions in any division.
-export const NAV = [
-  { path: '/', label: 'Dashboard', Icon: HomeIcon, any: [] },
-  { path: '/journeys', label: 'Journeys', Icon: TrainIcon, any: ['journeys.read', 'journeys.read_all'] },
-  { path: '/attendance', label: 'Attendance', Icon: UsersIcon, any: ['attendance.submit', 'attendance.read'] },
-  { path: '/inspections', label: 'Coach inspection', Icon: ClipboardIcon, any: ['inspections.submit', 'inspections.read'] },
-  { path: '/feedback', label: 'Feedback', Icon: ChatIcon, any: ['feedback.collect', 'feedback.railway.submit', 'feedback.read'] },
-  { path: '/complaints', label: 'Complaints', Icon: FlagIcon, any: ['complaints.create', 'complaints.read'] },
-  { path: '/masters', label: 'Master data', Icon: DatabaseGridIcon, any: ['trains.manage', 'users.read', 'divisions.manage'] },
-  { path: '/reports', label: 'Reports', Icon: ChartIcon, any: ['reports.read'] },
-];
+const ICONS = {
+  dashboard: HomeIcon, journeys: TrainIcon, attendance: UsersIcon, inspections: ClipboardIcon, feedback: ChatIcon,
+  complaints: FlagIcon, inventory: BoxIcon, masters: DatabaseGridIcon, reports: ChartIcon,
+};
+
+// Navigation is the module registry (src/app/modules.js) with an icon per module.
+export const NAV = MODULES.map((m) => ({ ...m, Icon: ICONS[m.key] }));
 
 export const visibleNav = (can) => NAV.filter((n) => !n.any.length || n.any.some(can));
 
@@ -45,7 +44,9 @@ function NavList({ items, active, onPick }) {
 function QueueIndicator() {
   const q = useQueueState();
   const { queue } = useSession();
-  if (!q.pending && !q.failed.length) return <span className="text-xs text-slate-500">All records synced</span>;
+  // Records captured by another user of this device sync only when that user signs in again.
+  const others = q.othersPending ? <span className="text-xs text-slate-500" data-testid="ops-queue-others"> · {q.othersPending} waiting for another user</span> : null;
+  if (!q.pending && !q.failed.length) return <span className="text-xs text-slate-500">All records synced{others}</span>;
   return (
     <button type="button" onClick={() => (q.failed.length ? queue.retryFailed() : queue.flush())}
       className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${q.failed.length ? 'bg-red-50 text-red-700 ring-red-200' : 'bg-amber-50 text-amber-800 ring-amber-200'}`}
@@ -56,9 +57,30 @@ function QueueIndicator() {
   );
 }
 
+// Browser connectivity is not server connectivity: "Online" only when the last exchange with the server
+// worked; a failed pull while the network is up shows as a server problem.
+function ConnectionIndicator({ online }) {
+  const q = useQueueState();
+  const [tone, text, title] = !online ? ['amber', 'Offline', 'No network. Records are saved on this device.']
+    : q.running || q.pulling ? ['sky', 'Syncing…', 'Exchanging records with the server']
+      : q.pullError || (q.lastError && q.pending) ? ['red', 'Server unreachable', q.pullError ?? q.lastError]
+        : ['emerald', 'Online', q.lastPullAt ? 'Connected to the server' : 'Network available'];
+  const dot = { amber: 'bg-amber-500', sky: 'bg-sky-500', red: 'bg-red-500', emerald: 'bg-emerald-500' }[tone];
+  const color = { amber: 'text-amber-700', sky: 'text-sky-700', red: 'text-red-700', emerald: 'text-emerald-700' }[tone];
+  return (
+    <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${color}`} title={title} role="status" data-testid="connection-status">
+      <span className={`h-2 w-2 rounded-full ${dot}`} /> {text}
+    </span>
+  );
+}
+
 export default function Layout({ path, children }) {
   const { user, can, signOut, me } = useSession();
   const online = useNetworkStatus();
+  // The SQLite database lives in OPFS: ask the browser not to evict it once a user works on this device.
+  useEffect(() => {
+    requestPersistence().catch(() => {});
+  }, []);
   const { toasts, notify, dismiss } = useToasts();
   const [open, setOpen] = useState(false);
   const items = visibleNav(can);
@@ -94,16 +116,14 @@ export default function Layout({ path, children }) {
           </div>
         )}
         <div className="lg:pl-64">
-          <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-6">
+          <header className="sticky top-0 z-20 flex min-h-14 items-center pt-[env(safe-area-inset-top)] gap-3 border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-6">
             <button type="button" className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
               <MenuIcon className="h-5 w-5" />
             </button>
             <span className="font-semibold text-teal-800 lg:hidden">Swachh Safar</span>
             <div className="ml-auto flex items-center gap-3">
               <QueueIndicator />
-              <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${online ? 'text-emerald-700' : 'text-amber-700'}`}>
-                <span className={`h-2 w-2 rounded-full ${online ? 'bg-emerald-500' : 'bg-amber-500'}`} /> {online ? 'Online' : 'Offline'}
-              </span>
+              <ConnectionIndicator online={online} />
             </div>
           </header>
           {DEMO_MODE && (
@@ -111,9 +131,11 @@ export default function Layout({ path, children }) {
               DEMO MODE — sample data only, not real operational records. Changes are not sent to any server.
             </p>
           )}
+          <UpdateBanner />
+          <InstallBanner />
           {me.offline && <p className="bg-amber-50 px-4 py-2 text-xs text-amber-900 sm:px-6">Signed in offline with your cached profile. Permissions will refresh when you reconnect.</p>}
-          <main className="mx-auto max-w-6xl px-4 py-5 pb-24 sm:px-6 lg:pb-8">{children}</main>
-          <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-5 border-t border-slate-200 bg-white lg:hidden">
+          <main className="mx-auto max-w-6xl px-4 py-5 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 lg:pb-8">{children}</main>
+          <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-5 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
             {items.slice(0, 5).map(({ path: p, label, Icon }) => {
               const on = p === '/' ? path === '/' : path.startsWith(p);
               return (

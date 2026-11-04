@@ -6,6 +6,8 @@ from typing import Any, TypeVar
 from pydantic import BaseModel
 from sqlalchemy import Select, func, select
 from sqlalchemy.exc import IntegrityError
+
+from app.sqlcompat import is_unique_violation
 from sqlalchemy.orm import Session
 
 from app.errors import Conflict, NotFound
@@ -78,6 +80,6 @@ def _unique_guard(db: Session, action, message: str, code: str) -> None:
         action()
     except IntegrityError as exc:
         db.rollback()
-        if getattr(exc.orig, "sqlstate", None) == "23505":
+        if is_unique_violation(exc):
             raise Conflict(message, code=code) from exc
         raise

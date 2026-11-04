@@ -1,0 +1,2937 @@
+{
+ "generated_at": "2026-11-04T11:21:37.612101+00:00",
+ "today": "2026-11-04",
+ "me": {
+  "user": {
+   "id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+   "emp_id": "AAA-manager",
+   "name": "Manager",
+   "name_hindi": null,
+   "email": null,
+   "mobile": "9000000002",
+   "gender": null,
+   "designation": null,
+   "lang": "en",
+   "role_id": 3,
+   "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+   "status": "active",
+   "firebase_linked": true,
+   "updated_at": "2026-11-04T11:21:34.682622Z"
+  },
+  "divisions": {
+   "1282b03d-6867-4cbc-b695-bf35a889cd31": [
+    "attendance.read",
+    "attendance.review",
+    "complaints.create",
+    "complaints.manage",
+    "complaints.read",
+    "dashboard.read",
+    "feedback.read",
+    "feedback.review",
+    "inspections.read",
+    "inspections.review",
+    "inventory.read",
+    "inventory.transact",
+    "journeys.manage",
+    "journeys.read",
+    "journeys.read_all",
+    "media.upload",
+    "reports.read",
+    "staff.manage",
+    "trains.manage",
+    "trains.read",
+    "users.manage",
+    "users.read"
+   ]
+  }
+ },
+ "downloads": [
+  [
+   "GET",
+   "/sync/changes",
+   {
+    "cursor": "2026-11-04T11:21:36.635817Z",
+    "full": true,
+    "divisions": [
+     {
+      "id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "code": "AAA",
+      "name": "AAA Division",
+      "is_active": true,
+      "updated_at": "2026-11-04T11:21:34.659797Z"
+     }
+    ],
+    "policies": {
+     "1282b03d-6867-4cbc-b695-bf35a889cd31": {
+      "passenger_pnr_required": true,
+      "passenger_otp_required": true,
+      "pnr_train_day_mapping": false,
+      "pnr_coach_match_required": true,
+      "passenger_feedback_per_coach_day": null,
+      "railway_feedback_limit_per_journey": 2,
+      "attendance_photo_required": true,
+      "attendance_late_grace_days": 1,
+      "inspection_photo_required": true,
+      "complaint_default_sla_hours": 72
+     }
+    },
+    "trains": [
+     {
+      "id": "69dd37f2-d6c0-4858-a017-670c70c6ef26",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_no": "12001",
+      "name": "Shatabdi Test",
+      "duration_days": 1,
+      "operational_days": 2,
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "is_active": true,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:34.758017Z"
+     },
+     {
+      "id": "61065cce-c543-4606-944e-0ca80d0cfae0",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_no": "12002",
+      "name": "Shatabdi Test",
+      "duration_days": 1,
+      "operational_days": 2,
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "is_active": true,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:35.040778Z"
+     },
+     {
+      "id": "2971b45c-b534-4b25-a92e-04a2d08a9509",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_no": "12003",
+      "name": "Shatabdi Test",
+      "duration_days": 1,
+      "operational_days": 2,
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "is_active": true,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:35.055337Z"
+     }
+    ],
+    "inventory_items": [
+     {
+      "id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "name": "Phenyl",
+      "unit": "ltr",
+      "ideal_qty": 5.0,
+      "is_active": true,
+      "updated_at": "2026-11-04T11:21:35.257982Z"
+     },
+     {
+      "id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "name": "Soap",
+      "unit": "nos",
+      "ideal_qty": 10.0,
+      "is_active": true,
+      "updated_at": "2026-11-04T11:21:35.276874Z"
+     }
+    ],
+    "question_banks": [
+     {
+      "id": "ffc772f4-e718-4562-8912-1c4413e63819",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "audience": "passenger",
+      "name": "passenger v1",
+      "scale_min": 1,
+      "scale_max": 5,
+      "is_active": true,
+      "questions": [
+       {
+        "id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+        "position": 1,
+        "text_en": "Toilet cleaning",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": true,
+        "required": true,
+        "psi_weight": 2.0
+       },
+       {
+        "id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+        "position": 2,
+        "text_en": "Bedroll quality",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": false,
+        "required": true,
+        "psi_weight": 2.0
+       },
+       {
+        "id": "9ea581c3-22c7-45e6-b8a7-56d02b2b42a0",
+        "position": 3,
+        "text_en": "Staff behaviour",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": true,
+        "required": false,
+        "psi_weight": 2.0
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:34.986459Z"
+     },
+     {
+      "id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "audience": "railway",
+      "name": "railway v1",
+      "scale_min": 1,
+      "scale_max": 5,
+      "is_active": true,
+      "questions": [
+       {
+        "id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+        "position": 1,
+        "text_en": "Toilet cleaning",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": true,
+        "required": true,
+        "psi_weight": null
+       },
+       {
+        "id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+        "position": 2,
+        "text_en": "Bedroll quality",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": false,
+        "required": true,
+        "psi_weight": null
+       },
+       {
+        "id": "68bbdf20-74c1-4466-9aea-0be4594f8ca4",
+        "position": 3,
+        "text_en": "Staff behaviour",
+        "text_hi": null,
+        "applies_ac": true,
+        "applies_non_ac": true,
+        "required": false,
+        "psi_weight": null
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:35.023761Z"
+     }
+    ],
+    "complaint_departments": [
+     {
+      "id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "name": "Electrical",
+      "is_active": true
+     }
+    ],
+    "complaint_categories": [
+     {
+      "id": "3d97b51e-d3d1-4f5a-be34-9a5ad94b4e1a",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "parent_id": null,
+      "name": "Coach",
+      "default_department_id": null,
+      "sla_hours": 48,
+      "sort_order": 0,
+      "is_active": true
+     },
+     {
+      "id": "2b6ea39c-c852-4da2-a9d4-01e7f7499c47",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "parent_id": null,
+      "name": "Water",
+      "default_department_id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+      "sla_hours": 1,
+      "sort_order": 0,
+      "is_active": true
+     }
+    ],
+    "journeys": [
+     {
+      "id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_id": "69dd37f2-d6c0-4858-a017-670c70c6ef26",
+      "train_no": "12001",
+      "train_name": "Shatabdi Test",
+      "linked_train_id": null,
+      "linked_train_no": null,
+      "journey_date": "2026-11-04",
+      "outbound_end_date": null,
+      "linked_journey_date": "2026-11-05",
+      "end_date": "2026-11-05",
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "duration_days": 1,
+      "operational_days": 2,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "supervisor_name": "Sup",
+      "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "state": "active",
+      "cancel_reason": null,
+      "cancelled_at": null,
+      "version": 1,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:34.822836Z",
+      "staff": [
+       {
+        "id": "20c7470f-cb3b-4c68-8737-7f0c9f8e707c",
+        "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "role_id": 4,
+        "name": "Sup",
+        "emp_id": "AAA-sup",
+        "allocated_at": "2026-11-04 11:21:34.822836+00:00",
+        "removed_at": null
+       },
+       {
+        "id": "78aa62c8-de04-4e95-a323-661e2e1e4a64",
+        "user_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+        "role_id": 5,
+        "name": "Jan",
+        "emp_id": "AAA-jan",
+        "allocated_at": "2026-11-04 11:21:34.822836+00:00",
+        "removed_at": null
+       }
+      ]
+     },
+     {
+      "id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_id": "61065cce-c543-4606-944e-0ca80d0cfae0",
+      "train_no": "12002",
+      "train_name": "Shatabdi Test",
+      "linked_train_id": null,
+      "linked_train_no": null,
+      "journey_date": "2026-11-04",
+      "outbound_end_date": null,
+      "linked_journey_date": "2026-11-05",
+      "end_date": "2026-11-05",
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "duration_days": 1,
+      "operational_days": 2,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "supervisor_name": "Sup",
+      "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "state": "active",
+      "cancel_reason": null,
+      "cancelled_at": null,
+      "version": 1,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:35.069236Z",
+      "staff": [
+       {
+        "id": "c0bb431a-d8ec-4a1e-9f63-edbb369c7573",
+        "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "role_id": 4,
+        "name": "Sup",
+        "emp_id": "AAA-sup",
+        "allocated_at": "2026-11-04 11:21:35.069236+00:00",
+        "removed_at": null
+       },
+       {
+        "id": "e46598e2-1e05-422d-b87b-4b4475807ca7",
+        "user_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+        "role_id": 5,
+        "name": "Jan2",
+        "emp_id": "AAA-jan2",
+        "allocated_at": "2026-11-04 11:21:35.069236+00:00",
+        "removed_at": null
+       }
+      ]
+     },
+     {
+      "id": "6f7216c1-41ae-48d0-858b-abf3ae70c8d7",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "train_id": "2971b45c-b534-4b25-a92e-04a2d08a9509",
+      "train_no": "12003",
+      "train_name": "Shatabdi Test",
+      "linked_train_id": null,
+      "linked_train_no": null,
+      "journey_date": "2026-11-04",
+      "outbound_end_date": null,
+      "linked_journey_date": "2026-11-05",
+      "end_date": "2026-11-05",
+      "start_time": null,
+      "end_time": null,
+      "return_start_time": null,
+      "return_end_time": null,
+      "duration_days": 1,
+      "operational_days": 2,
+      "daywise": false,
+      "inspection_rounds_per_day": 2,
+      "before_inspection_enabled": true,
+      "after_inspection_enabled": true,
+      "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "supervisor_name": "Sup",
+      "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "state": "cancelled",
+      "cancel_reason": "Rake not available",
+      "cancelled_at": "2026-11-04T11:21:35.156416Z",
+      "version": 2,
+      "coaches": [
+       {
+        "code": "B1",
+        "classification": "AC",
+        "position": 1
+       },
+       {
+        "code": "S1",
+        "classification": "NON_AC",
+        "position": 2
+       }
+      ],
+      "updated_at": "2026-11-04T11:21:35.140896Z",
+      "staff": [
+       {
+        "id": "8649dcea-5f04-45b7-8fed-42b4b093e268",
+        "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "role_id": 4,
+        "name": "Sup",
+        "emp_id": "AAA-sup",
+        "allocated_at": "2026-11-04 11:21:35.104380+00:00",
+        "removed_at": null
+       },
+       {
+        "id": "9c01102a-1e27-49ee-b1c8-2840892e607e",
+        "user_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+        "role_id": 5,
+        "name": "Jan",
+        "emp_id": "AAA-jan",
+        "allocated_at": "2026-11-04 11:21:35.104380+00:00",
+        "removed_at": null
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  [
+   "GET",
+   "/users",
+   {
+    "items": [
+     {
+      "id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "emp_id": "AAA-jan",
+      "name": "Jan",
+      "name_hindi": null,
+      "email": null,
+      "mobile": "9000000005",
+      "gender": null,
+      "designation": null,
+      "lang": "en",
+      "role_id": 5,
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "status": "active",
+      "firebase_linked": true,
+      "updated_at": "2026-11-04T11:21:34.689735Z"
+     },
+     {
+      "id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+      "emp_id": "AAA-jan2",
+      "name": "Jan2",
+      "name_hindi": null,
+      "email": null,
+      "mobile": "9000000006",
+      "gender": null,
+      "designation": null,
+      "lang": "en",
+      "role_id": 5,
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "status": "active",
+      "firebase_linked": true,
+      "updated_at": "2026-11-04T11:21:34.692969Z"
+     },
+     {
+      "id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "emp_id": "AAA-manager",
+      "name": "Manager",
+      "name_hindi": null,
+      "email": null,
+      "mobile": "9000000002",
+      "gender": null,
+      "designation": null,
+      "lang": "en",
+      "role_id": 3,
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "status": "active",
+      "firebase_linked": true,
+      "updated_at": "2026-11-04T11:21:34.682622Z"
+     },
+     {
+      "id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "emp_id": "AAA-sup",
+      "name": "Sup",
+      "name_hindi": null,
+      "email": null,
+      "mobile": "9000000003",
+      "gender": null,
+      "designation": null,
+      "lang": "en",
+      "role_id": 4,
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "status": "active",
+      "firebase_linked": true,
+      "updated_at": "2026-11-04T11:21:34.685868Z"
+     },
+     {
+      "id": "fa3bfa1f-275f-4a17-9e9c-140dc19f5779",
+      "emp_id": "AAA-sup2",
+      "name": "Sup2",
+      "name_hindi": null,
+      "email": null,
+      "mobile": "9000000004",
+      "gender": null,
+      "designation": null,
+      "lang": "en",
+      "role_id": 4,
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "status": "active",
+      "firebase_linked": true,
+      "updated_at": "2026-11-04T11:21:34.688062Z"
+     }
+    ],
+    "total": 5,
+    "page": 1,
+    "page_size": 5
+   }
+  ],
+  [
+   "GET",
+   "/journeys/a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+   {
+    "id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+    "train_id": "69dd37f2-d6c0-4858-a017-670c70c6ef26",
+    "train_no": "12001",
+    "train_name": "Shatabdi Test",
+    "linked_train_id": null,
+    "linked_train_no": null,
+    "journey_date": "2026-11-04",
+    "outbound_end_date": null,
+    "linked_journey_date": "2026-11-05",
+    "end_date": "2026-11-05",
+    "start_time": null,
+    "end_time": null,
+    "return_start_time": null,
+    "return_end_time": null,
+    "duration_days": 1,
+    "operational_days": 2,
+    "daywise": false,
+    "inspection_rounds_per_day": 2,
+    "before_inspection_enabled": true,
+    "after_inspection_enabled": true,
+    "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+    "supervisor_name": "Sup",
+    "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+    "state": "active",
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "version": 1,
+    "coaches": [
+     {
+      "code": "B1",
+      "classification": "AC",
+      "position": 1
+     },
+     {
+      "code": "S1",
+      "classification": "NON_AC",
+      "position": 2
+     }
+    ],
+    "updated_at": "2026-11-04T11:21:34.822836Z",
+    "staff": [
+     {
+      "id": "20c7470f-cb3b-4c68-8737-7f0c9f8e707c",
+      "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "role_id": 4,
+      "name": "Sup",
+      "emp_id": "AAA-sup",
+      "allocated_at": "2026-11-04T11:21:34.822836Z",
+      "removed_at": null
+     },
+     {
+      "id": "78aa62c8-de04-4e95-a323-661e2e1e4a64",
+      "user_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "role_id": 5,
+      "name": "Jan",
+      "emp_id": "AAA-jan",
+      "allocated_at": "2026-11-04T11:21:34.822836Z",
+      "removed_at": null
+     }
+    ]
+   }
+  ],
+  [
+   "GET",
+   "/journeys/46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+   {
+    "id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+    "train_id": "61065cce-c543-4606-944e-0ca80d0cfae0",
+    "train_no": "12002",
+    "train_name": "Shatabdi Test",
+    "linked_train_id": null,
+    "linked_train_no": null,
+    "journey_date": "2026-11-04",
+    "outbound_end_date": null,
+    "linked_journey_date": "2026-11-05",
+    "end_date": "2026-11-05",
+    "start_time": null,
+    "end_time": null,
+    "return_start_time": null,
+    "return_end_time": null,
+    "duration_days": 1,
+    "operational_days": 2,
+    "daywise": false,
+    "inspection_rounds_per_day": 2,
+    "before_inspection_enabled": true,
+    "after_inspection_enabled": true,
+    "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+    "supervisor_name": "Sup",
+    "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+    "state": "active",
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "version": 1,
+    "coaches": [
+     {
+      "code": "B1",
+      "classification": "AC",
+      "position": 1
+     },
+     {
+      "code": "S1",
+      "classification": "NON_AC",
+      "position": 2
+     }
+    ],
+    "updated_at": "2026-11-04T11:21:35.069236Z",
+    "staff": [
+     {
+      "id": "c0bb431a-d8ec-4a1e-9f63-edbb369c7573",
+      "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "role_id": 4,
+      "name": "Sup",
+      "emp_id": "AAA-sup",
+      "allocated_at": "2026-11-04T11:21:35.069236Z",
+      "removed_at": null
+     },
+     {
+      "id": "e46598e2-1e05-422d-b87b-4b4475807ca7",
+      "user_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+      "role_id": 5,
+      "name": "Jan2",
+      "emp_id": "AAA-jan2",
+      "allocated_at": "2026-11-04T11:21:35.069236Z",
+      "removed_at": null
+     }
+    ]
+   }
+  ],
+  [
+   "GET",
+   "/journeys/6f7216c1-41ae-48d0-858b-abf3ae70c8d7",
+   {
+    "id": "6f7216c1-41ae-48d0-858b-abf3ae70c8d7",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+    "train_id": "2971b45c-b534-4b25-a92e-04a2d08a9509",
+    "train_no": "12003",
+    "train_name": "Shatabdi Test",
+    "linked_train_id": null,
+    "linked_train_no": null,
+    "journey_date": "2026-11-04",
+    "outbound_end_date": null,
+    "linked_journey_date": "2026-11-05",
+    "end_date": "2026-11-05",
+    "start_time": null,
+    "end_time": null,
+    "return_start_time": null,
+    "return_end_time": null,
+    "duration_days": 1,
+    "operational_days": 2,
+    "daywise": false,
+    "inspection_rounds_per_day": 2,
+    "before_inspection_enabled": true,
+    "after_inspection_enabled": true,
+    "supervisor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+    "supervisor_name": "Sup",
+    "created_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+    "state": "cancelled",
+    "cancel_reason": "Rake not available",
+    "cancelled_at": "2026-11-04T11:21:35.156416Z",
+    "version": 2,
+    "coaches": [
+     {
+      "code": "B1",
+      "classification": "AC",
+      "position": 1
+     },
+     {
+      "code": "S1",
+      "classification": "NON_AC",
+      "position": 2
+     }
+    ],
+    "updated_at": "2026-11-04T11:21:35.140896Z",
+    "staff": [
+     {
+      "id": "8649dcea-5f04-45b7-8fed-42b4b093e268",
+      "user_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "role_id": 4,
+      "name": "Sup",
+      "emp_id": "AAA-sup",
+      "allocated_at": "2026-11-04T11:21:35.104380Z",
+      "removed_at": null
+     },
+     {
+      "id": "9c01102a-1e27-49ee-b1c8-2840892e607e",
+      "user_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "role_id": 5,
+      "name": "Jan",
+      "emp_id": "AAA-jan",
+      "allocated_at": "2026-11-04T11:21:35.104380Z",
+      "removed_at": null
+     }
+    ]
+   }
+  ],
+  [
+   "GET",
+   "/attendance/journeys/a285c38c-e1a2-48f5-8927-d8c5c5c781ea/status",
+   [
+    {
+     "employee_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+     "name": "Sup",
+     "emp_id": "AAA-sup",
+     "role_id": 4,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "taken",
+       "attendance_id": "a911ccfa-3729-4319-85b3-208e3230eae9"
+      },
+      {
+       "stage": 2,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 3,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 4,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    },
+    {
+     "employee_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+     "name": "Jan",
+     "emp_id": "AAA-jan",
+     "role_id": 5,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "taken",
+       "attendance_id": "169c3d51-49f3-484b-9bee-fe09f11aeec7"
+      },
+      {
+       "stage": 2,
+       "status": "taken",
+       "attendance_id": "b16abd8e-de14-47c4-ab7b-694b7b873d3c"
+      },
+      {
+       "stage": 3,
+       "status": "taken",
+       "attendance_id": "ab494928-1216-4a4a-b220-a3283235098a"
+      },
+      {
+       "stage": 4,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inspections/journeys/a285c38c-e1a2-48f5-8927-d8c5c5c781ea/status",
+   [
+    {
+     "coach_code": "B1",
+     "day": 1,
+     "day_open": true,
+     "required": 4,
+     "done": 3,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "taken",
+       "inspection_id": "71c64b02-8c37-40ad-a8b2-c992bc14f581"
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "taken",
+       "inspection_id": "b935d278-f7e9-4cc0-80dd-6dd74b3a5d1e"
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "taken",
+       "inspection_id": "87884c92-430a-4f2e-b3a6-c7f8e4292f9c"
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "open",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "B1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 1,
+     "day_open": true,
+     "required": 4,
+     "done": 1,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "taken",
+       "inspection_id": "89dfd705-d751-4a3a-b2c7-b62b0e0e619f"
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "open",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "open",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inventory/journeys/a285c38c-e1a2-48f5-8927-d8c5c5c781ea/transactions",
+   {
+    "items": [
+     {
+      "id": "e0556543-155c-4f5a-91ed-9e44f4d902f2",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+      "coach_code": "B1",
+      "txn_type": "issue",
+      "quantity": 10.0,
+      "remarks": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "created_at": "2026-11-04T11:21:36.554399Z"
+     },
+     {
+      "id": "7db1ecc3-63ae-487c-9d42-242897afa5fd",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+      "coach_code": "B1",
+      "txn_type": "return",
+      "quantity": 4.0,
+      "remarks": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "created_at": "2026-11-04T11:21:36.578180Z"
+     },
+     {
+      "id": "07e54bda-7852-461e-9531-a21b9db117ac",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "item_id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+      "coach_code": null,
+      "txn_type": "issue",
+      "quantity": 6.0,
+      "remarks": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "created_at": "2026-11-04T11:21:36.601948Z"
+     }
+    ],
+    "total": 3,
+    "page": 1,
+    "page_size": 3
+   }
+  ],
+  [
+   "GET",
+   "/attendance/journeys/46a70b9d-31cf-45a9-b9ac-8c41653dfc24/status",
+   [
+    {
+     "employee_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+     "name": "Sup",
+     "emp_id": "AAA-sup",
+     "role_id": 4,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 2,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 3,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 4,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    },
+    {
+     "employee_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+     "name": "Jan2",
+     "emp_id": "AAA-jan2",
+     "role_id": 5,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "taken",
+       "attendance_id": "02956328-4058-4092-b597-501dea019aad"
+      },
+      {
+       "stage": 2,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 3,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 4,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inspections/journeys/46a70b9d-31cf-45a9-b9ac-8c41653dfc24/status",
+   [
+    {
+     "coach_code": "B1",
+     "day": 1,
+     "day_open": true,
+     "required": 4,
+     "done": 1,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "taken",
+       "inspection_id": "18e5f650-eead-4724-b7f3-73095ba6fc4b"
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "open",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "open",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "B1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 1,
+     "day_open": true,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "open",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inventory/journeys/46a70b9d-31cf-45a9-b9ac-8c41653dfc24/transactions",
+   {
+    "items": [
+     {
+      "id": "cef6a152-4e0b-47c5-8639-6a22934ad762",
+      "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+      "coach_code": "B1",
+      "txn_type": "issue",
+      "quantity": 2.5,
+      "remarks": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "created_at": "2026-11-04T11:21:36.618171Z"
+     }
+    ],
+    "total": 1,
+    "page": 1,
+    "page_size": 1
+   }
+  ],
+  [
+   "GET",
+   "/attendance/journeys/6f7216c1-41ae-48d0-858b-abf3ae70c8d7/status",
+   [
+    {
+     "employee_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+     "name": "Sup",
+     "emp_id": "AAA-sup",
+     "role_id": 4,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 2,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 3,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 4,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    },
+    {
+     "employee_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+     "name": "Jan",
+     "emp_id": "AAA-jan",
+     "role_id": 5,
+     "stages": [
+      {
+       "stage": 1,
+       "status": "next",
+       "attendance_id": null
+      },
+      {
+       "stage": 2,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 3,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 4,
+       "status": "locked",
+       "attendance_id": null
+      },
+      {
+       "stage": 5,
+       "status": "locked",
+       "attendance_id": null
+      }
+     ],
+     "completed": false
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inspections/journeys/6f7216c1-41ae-48d0-858b-abf3ae70c8d7/status",
+   [
+    {
+     "coach_code": "B1",
+     "day": 1,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "B1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 1,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    },
+    {
+     "coach_code": "S1",
+     "day": 2,
+     "day_open": false,
+     "required": 4,
+     "done": 0,
+     "cells": [
+      {
+       "round": 1,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 1,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "B",
+       "status": "locked",
+       "inspection_id": null
+      },
+      {
+       "round": 2,
+       "phase": "A",
+       "status": "locked",
+       "inspection_id": null
+      }
+     ]
+    }
+   ]
+  ],
+  [
+   "GET",
+   "/inventory/journeys/6f7216c1-41ae-48d0-858b-abf3ae70c8d7/transactions",
+   {
+    "items": [],
+    "total": 0,
+    "page": 1,
+    "page_size": 1
+   }
+  ],
+  [
+   "GET",
+   "/attendance",
+   {
+    "items": [
+     {
+      "id": "a911ccfa-3729-4319-85b3-208e3230eae9",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "employee_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "stage": 1,
+      "device_timestamp": "2026-11-04T11:21:35.506411Z",
+      "server_timestamp": "2026-11-04T11:21:35.539115Z",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "gps_accuracy_m": null,
+      "photo_media_id": "2ddae030-f029-46aa-8fcc-400773c6c1a0",
+      "group_submission_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "verified_by_id": null,
+      "review_remarks": null,
+      "sync_op_id": null
+     },
+     {
+      "id": "ab494928-1216-4a4a-b220-a3283235098a",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "employee_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "stage": 3,
+      "device_timestamp": "2026-11-04T11:21:35.457880Z",
+      "server_timestamp": "2026-11-04T11:21:35.490062Z",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "gps_accuracy_m": null,
+      "photo_media_id": "3e779ff4-5446-4587-b380-2e7c388bd21c",
+      "group_submission_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "verified_by_id": null,
+      "review_remarks": null,
+      "sync_op_id": null
+     },
+     {
+      "id": "b16abd8e-de14-47c4-ab7b-694b7b873d3c",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "employee_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "stage": 2,
+      "device_timestamp": "2026-11-04T11:21:35.402910Z",
+      "server_timestamp": "2026-11-04T11:21:35.437904Z",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "gps_accuracy_m": null,
+      "photo_media_id": "be74f788-1fc2-4ff7-8393-7e8fb0329a08",
+      "group_submission_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "verified_by_id": null,
+      "review_remarks": null,
+      "sync_op_id": null
+     },
+     {
+      "id": "169c3d51-49f3-484b-9bee-fe09f11aeec7",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "employee_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+      "stage": 1,
+      "device_timestamp": "2026-11-04T11:21:35.281413Z",
+      "server_timestamp": "2026-11-04T11:21:35.363061Z",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "gps_accuracy_m": null,
+      "photo_media_id": "152f944c-f448-4b7d-a70d-4d00e30c76fc",
+      "group_submission_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "verified",
+      "verified_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "review_remarks": null,
+      "sync_op_id": null
+     },
+     {
+      "id": "02956328-4058-4092-b597-501dea019aad",
+      "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "employee_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+      "stage": 1,
+      "device_timestamp": "2026-11-03T18:35:00Z",
+      "server_timestamp": "2026-11-04T11:21:35.586282Z",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "gps_accuracy_m": null,
+      "photo_media_id": "25330f2a-e4a4-48fb-b5bb-00152755507d",
+      "group_submission_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "rejected",
+      "verified_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "review_remarks": "Blurred photo",
+      "sync_op_id": null
+     }
+    ],
+    "total": 5,
+    "page": 1,
+    "page_size": 5
+   }
+  ],
+  [
+   "GET",
+   "/inspections",
+   {
+    "items": [
+     {
+      "id": "b935d278-f7e9-4cc0-80dd-6dd74b3a5d1e",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "coach_code": "B1",
+      "day": 1,
+      "round": 1,
+      "phase": "A",
+      "comments": null,
+      "device_timestamp": "2026-11-04T11:21:35.679705Z",
+      "server_timestamp": "2026-11-04T11:21:35.708730Z",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "gps_accuracy_m": null,
+      "photo_media_id": "e9adfa15-64d9-41f7-9303-4557b768484b",
+      "video_media_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "review_remarks": null
+     },
+     {
+      "id": "18e5f650-eead-4724-b7f3-73095ba6fc4b",
+      "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "coach_code": "B1",
+      "day": 1,
+      "round": 1,
+      "phase": "B",
+      "comments": null,
+      "device_timestamp": "2026-11-04T11:21:35.811120Z",
+      "server_timestamp": "2026-11-04T11:21:35.841050Z",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "gps_accuracy_m": null,
+      "photo_media_id": "e4109328-a5a6-448c-b18f-8f8770c9b160",
+      "video_media_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "review_remarks": null
+     },
+     {
+      "id": "71c64b02-8c37-40ad-a8b2-c992bc14f581",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "coach_code": "B1",
+      "day": 1,
+      "round": 1,
+      "phase": "B",
+      "comments": null,
+      "device_timestamp": "2026-11-04T11:21:35.624237Z",
+      "server_timestamp": "2026-11-04T11:21:35.654349Z",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "gps_accuracy_m": null,
+      "photo_media_id": "7bd047fc-7ad9-4145-950e-e8c826183e19",
+      "video_media_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "verified",
+      "review_remarks": null
+     },
+     {
+      "id": "87884c92-430a-4f2e-b3a6-c7f8e4292f9c",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "coach_code": "B1",
+      "day": 1,
+      "round": 2,
+      "phase": "B",
+      "comments": null,
+      "device_timestamp": "2026-11-04T11:21:35.766918Z",
+      "server_timestamp": "2026-11-04T11:21:35.794350Z",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "gps_accuracy_m": null,
+      "photo_media_id": "474504e5-7929-47f4-8316-19d001161796",
+      "video_media_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "submitted",
+      "review_remarks": null
+     },
+     {
+      "id": "89dfd705-d751-4a3a-b2c7-b62b0e0e619f",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "coach_code": "S1",
+      "day": 1,
+      "round": 1,
+      "phase": "B",
+      "comments": null,
+      "device_timestamp": "2026-11-04T11:21:35.722728Z",
+      "server_timestamp": "2026-11-04T11:21:35.750775Z",
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "gps_accuracy_m": null,
+      "photo_media_id": "def0a015-27d5-43c9-93e6-a16c72f06745",
+      "video_media_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "verification_status": "rejected",
+      "review_remarks": null
+     }
+    ],
+    "total": 5,
+    "page": 1,
+    "page_size": 5
+   }
+  ],
+  [
+   "GET",
+   "/complaints",
+   {
+    "items": [
+     {
+      "id": "6876db2e-111d-4466-9123-1f4edd8806e4",
+      "complaint_no": "AAA-2026-000003",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+      "train_id": "61065cce-c543-4606-944e-0ca80d0cfae0",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "category_id": "2b6ea39c-c852-4da2-a9d4-01e7f7499c47",
+      "subcategory_id": null,
+      "description": "Fan in bay 3 not working",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "department_id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+      "assigned_to_id": null,
+      "status": "completed",
+      "sla_hours": 1,
+      "due_at": "2026-11-04T12:21:36.491899Z",
+      "is_overdue": false,
+      "resolution_remarks": "Fixed",
+      "closed_at": "2026-11-04T11:21:36.538919Z",
+      "closed_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "server_timestamp": "2026-11-04T11:21:36.485777Z",
+      "attachment_ids": [],
+      "history": [
+       {
+        "id": "1cd9fcfc-de8e-450c-9d0b-8783c854173e",
+        "from_status": null,
+        "to_status": "created",
+        "actor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "forwarded_to_id": null,
+        "department_id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+        "remarks": "Created",
+        "created_at": "2026-11-04T11:21:36.485777Z"
+       },
+       {
+        "id": "76c0c770-8ceb-4015-8c00-552412bbf11f",
+        "from_status": "created",
+        "to_status": "completed",
+        "actor_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+        "forwarded_to_id": null,
+        "department_id": null,
+        "remarks": "Fixed",
+        "created_at": "2026-11-04T11:21:36.534062Z"
+       }
+      ]
+     },
+     {
+      "id": "50e9f40b-c9fd-43c0-a225-9bc061248e76",
+      "complaint_no": "AAA-2026-000002",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "train_id": "69dd37f2-d6c0-4858-a017-670c70c6ef26",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "category_id": "2b6ea39c-c852-4da2-a9d4-01e7f7499c47",
+      "subcategory_id": null,
+      "description": "Fan in bay 3 not working",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "department_id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+      "assigned_to_id": null,
+      "status": "in_process",
+      "sla_hours": 1,
+      "due_at": "2026-11-04T12:21:36.467478Z",
+      "is_overdue": false,
+      "resolution_remarks": null,
+      "closed_at": null,
+      "closed_by_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "server_timestamp": "2026-11-04T11:21:36.461595Z",
+      "attachment_ids": [],
+      "history": [
+       {
+        "id": "66021f1c-e554-4220-8e6a-120ecbe67530",
+        "from_status": null,
+        "to_status": "created",
+        "actor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "forwarded_to_id": null,
+        "department_id": "25372001-6f45-4810-b83f-138aa2d27bcf",
+        "remarks": "Created",
+        "created_at": "2026-11-04T11:21:36.461595Z"
+       },
+       {
+        "id": "08b92f6d-1e89-45f3-9051-a6c2ad89eb1e",
+        "from_status": "created",
+        "to_status": "in_process",
+        "actor_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+        "forwarded_to_id": null,
+        "department_id": null,
+        "remarks": null,
+        "created_at": "2026-11-04T11:21:36.512262Z"
+       }
+      ]
+     },
+     {
+      "id": "2621d863-369a-415c-b64e-df15f028fbfd",
+      "complaint_no": "AAA-2026-000001",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "train_id": "69dd37f2-d6c0-4858-a017-670c70c6ef26",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "category_id": "3d97b51e-d3d1-4f5a-be34-9a5ad94b4e1a",
+      "subcategory_id": null,
+      "description": "Fan in bay 3 not working",
+      "latitude": 23.1,
+      "longitude": 79.9,
+      "department_id": null,
+      "assigned_to_id": null,
+      "status": "created",
+      "sla_hours": 48,
+      "due_at": "2026-11-06T11:21:36.422051Z",
+      "is_overdue": false,
+      "resolution_remarks": null,
+      "closed_at": null,
+      "closed_by_id": null,
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "server_timestamp": "2026-11-04T11:21:36.408075Z",
+      "attachment_ids": [],
+      "history": [
+       {
+        "id": "994e84cb-cf69-4c8d-ad46-f5f8534e0dac",
+        "from_status": null,
+        "to_status": "created",
+        "actor_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+        "forwarded_to_id": null,
+        "department_id": null,
+        "remarks": "Created",
+        "created_at": "2026-11-04T11:21:36.408075Z"
+       }
+      ]
+     }
+    ],
+    "total": 3,
+    "page": 1,
+    "page_size": 3
+   }
+  ],
+  [
+   "GET",
+   "/feedback/passenger",
+   {
+    "items": [
+     {
+      "id": "82d02d32-1213-4a7b-825f-047f5bf6afea",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "journey_day": 1,
+      "feedback_date": "2026-11-04",
+      "passenger_name": "Asha",
+      "mobile_masked": "93XXXXXX33",
+      "pnr": "3333333333",
+      "seat_no": "12",
+      "status": "verified",
+      "pnr_status": "valid",
+      "otp_status": "verified",
+      "void_reason": null,
+      "comments": null,
+      "voice_media_id": null,
+      "ratings": [],
+      "collected_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "device_timestamp": "2026-11-04T11:21:36.235548Z",
+      "server_timestamp": "2026-11-04T11:21:36.244143Z",
+      "verified_at": "2026-11-04T11:21:36.312941Z",
+      "completed_at": null
+     },
+     {
+      "id": "e514a6b1-8352-4c24-89fb-c6d2efc3ff5d",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "journey_day": 1,
+      "feedback_date": "2026-11-04",
+      "passenger_name": "Asha",
+      "mobile_masked": "92XXXXXX22",
+      "pnr": "2222222222",
+      "seat_no": "12",
+      "status": "completed",
+      "pnr_status": "valid",
+      "otp_status": "verified",
+      "void_reason": null,
+      "comments": null,
+      "voice_media_id": null,
+      "ratings": [
+       {
+        "question_id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+        "value": 3
+       },
+       {
+        "question_id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+        "value": 1
+       }
+      ],
+      "collected_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "device_timestamp": "2026-11-04T11:21:36.131617Z",
+      "server_timestamp": "2026-11-04T11:21:36.136334Z",
+      "verified_at": "2026-11-04T11:21:36.208811Z",
+      "completed_at": "2026-11-04T11:21:36.232938Z"
+     },
+     {
+      "id": "83682d13-5368-49b9-85b4-86e4867cccf4",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+      "coach_code": "B1",
+      "coach_class": "AC",
+      "journey_day": 1,
+      "feedback_date": "2026-11-04",
+      "passenger_name": "Asha",
+      "mobile_masked": "91XXXXXX11",
+      "pnr": "1111111111",
+      "seat_no": "12",
+      "status": "completed",
+      "pnr_status": "valid",
+      "otp_status": "verified",
+      "void_reason": null,
+      "comments": null,
+      "voice_media_id": null,
+      "ratings": [
+       {
+        "question_id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+        "value": 5
+       },
+       {
+        "question_id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+        "value": 3
+       }
+      ],
+      "collected_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "device_timestamp": "2026-11-04T11:21:35.878807Z",
+      "server_timestamp": "2026-11-04T11:21:35.885331Z",
+      "verified_at": "2026-11-04T11:21:36.006160Z",
+      "completed_at": "2026-11-04T11:21:36.122397Z"
+     }
+    ],
+    "total": 3,
+    "page": 1,
+    "page_size": 3
+   }
+  ],
+  [
+   "GET",
+   "/feedback/railway",
+   {
+    "items": [
+     {
+      "id": "df7af6e0-c4c7-45b3-837e-15b1a6bc935e",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "bank_id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+      "railway_employee_id": "R2",
+      "official_name": "Insp. Rao",
+      "designation": null,
+      "coach_code": null,
+      "journey_day": 1,
+      "comments": null,
+      "verification_status": "submitted",
+      "verified_at": null,
+      "verified_by_id": null,
+      "ratings": [
+       {
+        "question_id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+        "value": 2
+       },
+       {
+        "question_id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+        "value": 2
+       }
+      ],
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "device_timestamp": "2026-11-04T11:21:36.358818Z",
+      "server_timestamp": "2026-11-04T11:21:36.366120Z"
+     },
+     {
+      "id": "37c8b88a-378b-4073-8b70-f8eeeed041fe",
+      "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+      "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31",
+      "bank_id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+      "railway_employee_id": "R1",
+      "official_name": "Insp. Rao",
+      "designation": null,
+      "coach_code": null,
+      "journey_day": 1,
+      "comments": null,
+      "verification_status": "verified",
+      "verified_at": "2026-11-04T11:21:36.393229Z",
+      "verified_by_id": "01a945b9-901e-4c69-960d-8df8829a1bbc",
+      "ratings": [
+       {
+        "question_id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+        "value": 5
+       },
+       {
+        "question_id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+        "value": 5
+       }
+      ],
+      "created_by_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+      "device_timestamp": "2026-11-04T11:21:36.322384Z",
+      "server_timestamp": "2026-11-04T11:21:36.327725Z"
+     }
+    ],
+    "total": 2,
+    "page": 1,
+    "page_size": 2
+   }
+  ]
+ ],
+ "reports": [
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04",
+    "group_by": "employee"
+   },
+   "response": [
+    {
+     "key_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+     "label": "Jan (AAA-jan)",
+     "journeys": 1,
+     "records": 3,
+     "stages": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "key_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+     "label": "Jan2 (AAA-jan2)",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 1
+    },
+    {
+     "key_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+     "label": "Sup (AAA-sup)",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04",
+    "group_by": "journey"
+   },
+   "response": [
+    {
+     "key_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "label": "12001 / 2026-11-04",
+     "journeys": 1,
+     "records": 4,
+     "stages": {
+      "1": 2,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "key_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "label": "12002 / 2026-11-04",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04",
+    "coach_wise": "false"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": null,
+     "required": 16,
+     "done": 4,
+     "completion_pct": 25.0,
+     "verified": 1,
+     "rejected": 1
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": null,
+     "required": 16,
+     "done": 1,
+     "completion_pct": 6.25,
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04",
+    "coach_wise": "true"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": "B1",
+     "required": 8,
+     "done": 3,
+     "completion_pct": 37.5,
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": "S1",
+     "required": 8,
+     "done": 1,
+     "completion_pct": 12.5,
+     "verified": 0,
+     "rejected": 1
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": "B1",
+     "required": 8,
+     "done": 1,
+     "completion_pct": 12.5,
+     "verified": 0,
+     "rejected": 0
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": "S1",
+     "required": 8,
+     "done": 0,
+     "completion_pct": 0.0,
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/feedback/passenger",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "audience": "passenger",
+    "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 3,
+    "by_status": {
+     "completed": 2,
+     "verified": 1
+    },
+    "by_coach_class": {
+     "AC": 2
+    },
+    "questions": [
+     {
+      "question_id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 2,
+      "average": 4.0
+     },
+     {
+      "question_id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 2,
+      "average": 2.0
+     },
+     {
+      "question_id": "9ea581c3-22c7-45e6-b8a7-56d02b2b42a0",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/feedback/railway",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "audience": "railway",
+    "bank_id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 2,
+    "by_status": {
+     "submitted": 1,
+     "verified": 1
+    },
+    "by_coach_class": {},
+    "questions": [
+     {
+      "question_id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 2,
+      "average": 3.5
+     },
+     {
+      "question_id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 2,
+      "average": 3.5
+     },
+     {
+      "question_id": "68bbdf20-74c1-4466-9aea-0be4594f8ca4",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/psi",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "responses": 2,
+     "psi": 50.0
+    }
+   ]
+  },
+  {
+   "path": "/reports/complaints",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "total": 3,
+    "by_status": {
+     "completed": 1,
+     "created": 1,
+     "in_process": 1
+    },
+    "overdue": 0,
+    "by_category": [
+     {
+      "category_id": "2b6ea39c-c852-4da2-a9d4-01e7f7499c47",
+      "category": "Water",
+      "total": 2,
+      "open": 1
+     },
+     {
+      "category_id": "3d97b51e-d3d1-4f5a-be34-9a5ad94b4e1a",
+      "category": "Coach",
+      "total": 1,
+      "open": 1
+     }
+    ],
+    "avg_resolution_hours": 0.0
+   }
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04"
+   },
+   "response": [
+    {
+     "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+     "item_name": "Phenyl",
+     "unit": "ltr",
+     "issued": 12.5,
+     "returned": 4.0,
+     "consumed": 8.5,
+     "journeys": 2
+    },
+    {
+     "item_id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+     "item_name": "Soap",
+     "unit": "nos",
+     "issued": 6.0,
+     "returned": 0.0,
+     "consumed": 6.0,
+     "journeys": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-11-04",
+    "date_to": "2026-11-04",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31"
+   },
+   "response": [
+    {
+     "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+     "item_name": "Phenyl",
+     "unit": "ltr",
+     "issued": 12.5,
+     "returned": 4.0,
+     "consumed": 8.5,
+     "journeys": 2
+    },
+    {
+     "item_id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+     "item_name": "Soap",
+     "unit": "nos",
+     "issued": 6.0,
+     "returned": 0.0,
+     "consumed": 6.0,
+     "journeys": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04",
+    "group_by": "employee"
+   },
+   "response": [
+    {
+     "key_id": "e3dcf433-f675-4f24-8f64-d73aa16691cf",
+     "label": "Jan (AAA-jan)",
+     "journeys": 1,
+     "records": 3,
+     "stages": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "key_id": "2c791450-b2c7-4596-89b4-240b003d54bf",
+     "label": "Jan2 (AAA-jan2)",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 1
+    },
+    {
+     "key_id": "61b67b78-4537-437e-9033-b04b0b16c1f3",
+     "label": "Sup (AAA-sup)",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04",
+    "group_by": "journey"
+   },
+   "response": [
+    {
+     "key_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "label": "12001 / 2026-11-04",
+     "journeys": 1,
+     "records": 4,
+     "stages": {
+      "1": 2,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "key_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "label": "12002 / 2026-11-04",
+     "journeys": 1,
+     "records": 1,
+     "stages": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+     },
+     "verified": 0,
+     "rejected": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04",
+    "coach_wise": "false"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": null,
+     "required": 16,
+     "done": 4,
+     "completion_pct": 25.0,
+     "verified": 1,
+     "rejected": 1
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": null,
+     "required": 16,
+     "done": 1,
+     "completion_pct": 6.25,
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04",
+    "coach_wise": "true"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": "B1",
+     "required": 8,
+     "done": 3,
+     "completion_pct": 37.5,
+     "verified": 1,
+     "rejected": 0
+    },
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "coach_code": "S1",
+     "required": 8,
+     "done": 1,
+     "completion_pct": 12.5,
+     "verified": 0,
+     "rejected": 1
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": "B1",
+     "required": 8,
+     "done": 1,
+     "completion_pct": 12.5,
+     "verified": 0,
+     "rejected": 0
+    },
+    {
+     "journey_id": "46a70b9d-31cf-45a9-b9ac-8c41653dfc24",
+     "train_no": "12002",
+     "journey_date": "2026-11-04",
+     "coach_code": "S1",
+     "required": 8,
+     "done": 0,
+     "completion_pct": 0.0,
+     "verified": 0,
+     "rejected": 0
+    }
+   ]
+  },
+  {
+   "path": "/reports/feedback/passenger",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "audience": "passenger",
+    "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 3,
+    "by_status": {
+     "completed": 2,
+     "verified": 1
+    },
+    "by_coach_class": {
+     "AC": 2
+    },
+    "questions": [
+     {
+      "question_id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 2,
+      "average": 4.0
+     },
+     {
+      "question_id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 2,
+      "average": 2.0
+     },
+     {
+      "question_id": "9ea581c3-22c7-45e6-b8a7-56d02b2b42a0",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/feedback/railway",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "audience": "railway",
+    "bank_id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 2,
+    "by_status": {
+     "submitted": 1,
+     "verified": 1
+    },
+    "by_coach_class": {},
+    "questions": [
+     {
+      "question_id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 2,
+      "average": 3.5
+     },
+     {
+      "question_id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 2,
+      "average": 3.5
+     },
+     {
+      "question_id": "68bbdf20-74c1-4466-9aea-0be4594f8ca4",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/psi",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04"
+   },
+   "response": [
+    {
+     "journey_id": "a285c38c-e1a2-48f5-8927-d8c5c5c781ea",
+     "train_no": "12001",
+     "journey_date": "2026-11-04",
+     "responses": 2,
+     "psi": 50.0
+    }
+   ]
+  },
+  {
+   "path": "/reports/complaints",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04"
+   },
+   "response": {
+    "total": 3,
+    "by_status": {
+     "completed": 1,
+     "created": 1,
+     "in_process": 1
+    },
+    "overdue": 0,
+    "by_category": [
+     {
+      "category_id": "2b6ea39c-c852-4da2-a9d4-01e7f7499c47",
+      "category": "Water",
+      "total": 2,
+      "open": 1
+     },
+     {
+      "category_id": "3d97b51e-d3d1-4f5a-be34-9a5ad94b4e1a",
+      "category": "Coach",
+      "total": 1,
+      "open": 1
+     }
+    ],
+    "avg_resolution_hours": 0.0
+   }
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04"
+   },
+   "response": [
+    {
+     "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+     "item_name": "Phenyl",
+     "unit": "ltr",
+     "issued": 12.5,
+     "returned": 4.0,
+     "consumed": 8.5,
+     "journeys": 2
+    },
+    {
+     "item_id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+     "item_name": "Soap",
+     "unit": "nos",
+     "issued": 6.0,
+     "returned": 0.0,
+     "consumed": 6.0,
+     "journeys": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-10-29",
+    "date_to": "2026-11-04",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31"
+   },
+   "response": [
+    {
+     "item_id": "a737f2a7-fc4a-4d42-9eca-1c308c1e6a64",
+     "item_name": "Phenyl",
+     "unit": "ltr",
+     "issued": 12.5,
+     "returned": 4.0,
+     "consumed": 8.5,
+     "journeys": 2
+    },
+    {
+     "item_id": "0efd6193-731f-47cb-9458-b611c5bbf950",
+     "item_name": "Soap",
+     "unit": "nos",
+     "issued": 6.0,
+     "returned": 0.0,
+     "consumed": 6.0,
+     "journeys": 1
+    }
+   ]
+  },
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11",
+    "group_by": "employee"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/attendance",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11",
+    "group_by": "journey"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11",
+    "coach_wise": "false"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/inspections",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11",
+    "coach_wise": "true"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/feedback/passenger",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11"
+   },
+   "response": {
+    "audience": "passenger",
+    "bank_id": "ffc772f4-e718-4562-8912-1c4413e63819",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 0,
+    "by_status": {},
+    "by_coach_class": {},
+    "questions": [
+     {
+      "question_id": "b8fbd7c0-d623-41fc-ae42-aca765592cda",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 0,
+      "average": null
+     },
+     {
+      "question_id": "44382c8e-5955-40b0-a225-5c20c7c50f19",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 0,
+      "average": null
+     },
+     {
+      "question_id": "9ea581c3-22c7-45e6-b8a7-56d02b2b42a0",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/feedback/railway",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11"
+   },
+   "response": {
+    "audience": "railway",
+    "bank_id": "9c47e3ba-f1d6-46d7-93a2-01a837917c2b",
+    "scale_min": 1,
+    "scale_max": 5,
+    "total": 0,
+    "by_status": {},
+    "by_coach_class": {},
+    "questions": [
+     {
+      "question_id": "33246210-82df-45db-a22a-e7fdf022e6ae",
+      "position": 1,
+      "text_en": "Toilet cleaning",
+      "responses": 0,
+      "average": null
+     },
+     {
+      "question_id": "3f18dc6a-b6bf-42df-880d-bbea02c0ac38",
+      "position": 2,
+      "text_en": "Bedroll quality",
+      "responses": 0,
+      "average": null
+     },
+     {
+      "question_id": "68bbdf20-74c1-4466-9aea-0be4594f8ca4",
+      "position": 3,
+      "text_en": "Staff behaviour",
+      "responses": 0,
+      "average": null
+     }
+    ]
+   }
+  },
+  {
+   "path": "/reports/psi",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/complaints",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11"
+   },
+   "response": {
+    "total": 0,
+    "by_status": {},
+    "overdue": 0,
+    "by_category": [],
+    "avg_resolution_hours": null
+   }
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11"
+   },
+   "response": []
+  },
+  {
+   "path": "/reports/inventory",
+   "query": {
+    "date_from": "2026-11-09",
+    "date_to": "2026-11-11",
+    "division_id": "1282b03d-6867-4cbc-b695-bf35a889cd31"
+   },
+   "response": []
+  }
+ ]
+}

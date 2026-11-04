@@ -2,10 +2,10 @@ import uuid
 from datetime import timedelta
 
 from sqlalchemy import or_, select
-from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
+from app.sqlcompat import insert_for
 from app.errors import BusinessRuleViolation, Conflict, Forbidden, NotFound
 from app.models import (
     Complaint,
@@ -126,7 +126,7 @@ def list_categories(db: Session, p: Principal, division_id: uuid.UUID) -> list[C
 
 def _next_number(db: Session, division: Division) -> str:
     year = utcnow().astimezone(IST).year
-    stmt = (insert(ComplaintCounter).values(division_id=division.id, year=year, last_seq=1)
+    stmt = (insert_for(db)(ComplaintCounter).values(division_id=division.id, year=year, last_seq=1)
             .on_conflict_do_update(index_elements=["division_id", "year"], set_={"last_seq": ComplaintCounter.last_seq + 1})
             .returning(ComplaintCounter.last_seq))
     seq = db.execute(stmt).scalar_one()

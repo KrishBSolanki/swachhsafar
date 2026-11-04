@@ -5,7 +5,6 @@ from enum import StrEnum
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
-    DateTime,
     ForeignKey,
     Index,
     Integer,
@@ -16,7 +15,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models.base import Base, Timestamps, UUIDPk, str_enum
+from app.models.base import Base, Timestamps, UUIDPk, str_enum, TZDateTime
 from app.models.trains import CoachClass
 
 
@@ -77,12 +76,12 @@ class Complaint(Timestamps, Base):
     assigned_to_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"), index=True)
     status: Mapped[ComplaintStatus] = mapped_column(str_enum(ComplaintStatus, 12), nullable=False, default=ComplaintStatus.CREATED)
     sla_hours: Mapped[int] = mapped_column(Integer, nullable=False)
-    due_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
+    due_at: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False, index=True)
     resolution_remarks: Mapped[str | None] = mapped_column(Text)
-    closed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    closed_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     closed_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
-    device_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    server_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    device_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
+    server_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
     created_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     payload_hash: Mapped[str] = mapped_column(String(64), nullable=False)
 
@@ -110,7 +109,7 @@ class ComplaintHistory(UUIDPk, Base):
     forwarded_to_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
     department_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("complaint_departments.id"))
     remarks: Mapped[str | None] = mapped_column(Text)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
 
 
 class ComplaintAttachment(Base):

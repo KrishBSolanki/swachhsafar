@@ -1,7 +1,7 @@
 import uuid
 from datetime import timedelta
 
-from sqlalchemy import select, update
+from sqlalchemy import select
 
 from app.models import OtpChallenge, PassengerFeedback
 from app.providers.external import PnrResult
@@ -90,7 +90,8 @@ def test_expired_otp_and_resend_limit(world, fakes):
     fb = start(world).json()
     world.client.post(f"{API}/passenger/{fb['id']}/verify-pnr", headers=world.h("sup"))
     world.client.post(f"{API}/passenger/{fb['id']}/send-otp", headers=world.h("sup"))
-    world.db.execute(update(OtpChallenge).values(expires_at=OtpChallenge.expires_at - timedelta(hours=1)))
+    for challenge in world.db.scalars(select(OtpChallenge)):  # expire every challenge (dialect-neutral)
+        challenge.expires_at -= timedelta(hours=1)
     world.db.commit()
     r = world.client.post(f"{API}/passenger/{fb['id']}/verify-otp", headers=world.h("sup"), json={"code": fakes[1].last_code})
     assert r.json()["error"]["code"] == "otp_expired"

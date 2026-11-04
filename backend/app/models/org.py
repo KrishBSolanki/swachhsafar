@@ -7,7 +7,6 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     Date,
-    DateTime,
     Enum,
     ForeignKey,
     Index,
@@ -20,7 +19,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models.base import Base, Timestamps, UUIDPk
+from app.models.base import Base, Timestamps, UUIDPk, TZDateTime
 
 JSONType = JSON().with_variant(JSONB(), "postgresql")
 
@@ -98,9 +97,9 @@ class RolePermission(UUIDPk, Timestamps, Base):
 class User(UUIDPk, Timestamps, Base):
     __tablename__ = "users"
     __table_args__ = (
-        Index("uq_users_emp_id_live", "emp_id", unique=True, postgresql_where=text("status <> 'deleted'")),
-        Index("uq_users_email_live", func.lower(text("email")), unique=True, postgresql_where=text("status <> 'deleted' AND email IS NOT NULL")),
-        Index("uq_users_mobile_live", "mobile", unique=True, postgresql_where=text("status <> 'deleted' AND mobile IS NOT NULL")),
+        Index("uq_users_emp_id_live", "emp_id", unique=True, postgresql_where=text("status <> 'deleted'"), sqlite_where=text("status <> 'deleted'")),
+        Index("uq_users_email_live", func.lower(text("email")), unique=True, postgresql_where=text("status <> 'deleted' AND email IS NOT NULL"), sqlite_where=text("status <> 'deleted' AND email IS NOT NULL")),
+        Index("uq_users_mobile_live", "mobile", unique=True, postgresql_where=text("status <> 'deleted' AND mobile IS NOT NULL"), sqlite_where=text("status <> 'deleted' AND mobile IS NOT NULL")),
         CheckConstraint("mobile IS NULL OR mobile ~ '^[6-9][0-9]{9}$'", name="mobile_format"),
     )
 
@@ -121,7 +120,7 @@ class User(UUIDPk, Timestamps, Base):
         default=UserStatus.ACTIVE,
         index=True,
     )
-    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    deleted_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     created_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
 
     role: Mapped[Role] = relationship(lazy="joined")
@@ -179,7 +178,7 @@ class AuditLog(UUIDPk, Base):
     __tablename__ = "audit_logs"
     __table_args__ = (Index("ix_audit_logs_entity", "entity_type", "entity_id"),)
 
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False, index=True)
     actor_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"), index=True)
     division_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("divisions.id"), index=True)
     action: Mapped[str] = mapped_column(String(64), nullable=False)

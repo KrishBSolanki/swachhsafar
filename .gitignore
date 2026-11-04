@@ -1,5 +1,7 @@
 node_modules/
 dist/
+dist-demo/
+dist-e2e/
 dev-dist/
 .env.local
 .env.*.local

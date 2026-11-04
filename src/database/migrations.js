@@ -1,5 +1,7 @@
 // Ordered schema migrations, tracked with SQLite's PRAGMA user_version.
 // Never edit a released migration; append a new one instead.
+// v1–v2: Phase 1 registration and sync outbox. v3–v6: Phase 2 operational schema (operationalMigrations.js).
+import { OPERATIONAL_MIGRATIONS } from './operationalMigrations.js';
 
 export const MIGRATIONS = [
   {
@@ -52,6 +54,7 @@ export const MIGRATIONS = [
       )`,
     ],
   },
+  ...OPERATIONAL_MIGRATIONS,
 ];
 
 export const LATEST_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;

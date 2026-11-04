@@ -24,6 +24,7 @@ function startWorker() {
     if (data.error) {
       const err = new Error(data.error.message);
       err.code = data.error.code;
+      if (data.error.name) err.name = data.error.name;
       entry.reject(err);
     } else {
       entry.resolve(data.result);
@@ -42,8 +43,16 @@ const workerDb = {
   transaction: (statements) => call('transaction', { statements }),
 };
 
+// Media byte store in OPFS, owned by the same worker (see mediaStore.js for the interface).
+const workerFiles = {
+  write: (name, bytes) => call('file.write', { name, bytes }),
+  read: (name) => call('file.read', { name }),
+  remove: (name) => call('file.remove', { name }),
+  list: () => call('file.list'),
+};
+
 // Opens swachh_safar_local.db in OPFS and brings the schema up to date.
-// Resolves to { db, info, migration }. Safe to call repeatedly.
+// Resolves to { db, files, info, migration }. Safe to call repeatedly.
 export function initDatabase() {
   if (!initPromise) {
     initPromise = (async () => {
@@ -62,7 +71,7 @@ export function initDatabase() {
       const migration = await runMigrations(workerDb);
       // Only report ready once a real query against the migrated schema has succeeded.
       const [{ n }] = await workerDb.query('SELECT COUNT(*) AS n FROM users');
-      return { db: workerDb, info: { ...info, localUsers: n }, migration };
+      return { db: workerDb, files: workerFiles, info: { ...info, localUsers: n }, migration };
     })().catch((e) => {
       worker?.terminate();
       worker = null;

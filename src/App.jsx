@@ -1,10 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
-import Layout, { visibleNav } from './app/Layout.jsx';
+import Layout from './app/Layout.jsx';
 import { SessionProvider, useSession } from './app/session.jsx';
 import { useRoute } from './app/router.js';
+import { resolveRoute } from './app/modules.js';
 import { initDatabase } from './database/sqlite.js';
+import { recoverAfterStart } from './database/startupRecovery.js';
 import { ErrorNote, Loading } from './components/ui.jsx';
 
 const Dashboard = lazy(() => import('./pages/ops/Dashboard.jsx'));
@@ -14,11 +16,13 @@ const Inspections = lazy(() => import('./pages/ops/Inspections.jsx'));
 const Feedback = lazy(() => import('./pages/ops/Feedback.jsx'));
 const Complaints = lazy(() => import('./pages/ops/Complaints.jsx'));
 const Masters = lazy(() => import('./pages/ops/Masters.jsx'));
+const Inventory = lazy(() => import('./pages/ops/Inventory.jsx'));
 const Reports = lazy(() => import('./pages/ops/Reports.jsx'));
 
+// One screen per module key in src/app/modules.js.
 const SCREENS = {
-  '': Dashboard, journeys: Journeys, attendance: Attendance, inspections: Inspections,
-  feedback: Feedback, complaints: Complaints, masters: Masters, reports: Reports,
+  dashboard: Dashboard, journeys: Journeys, attendance: Attendance, inspections: Inspections,
+  feedback: Feedback, complaints: Complaints, inventory: Inventory, masters: Masters, reports: Reports,
 };
 
 function Shell() {
@@ -50,13 +54,12 @@ function Shell() {
     );
   }
 
-  const section = parts[0] ?? '';
-  const allowed = visibleNav(session.can).some((n) => n.path === `/${section}`);
-  const Screen = allowed ? SCREENS[section] : null;
+  const route = resolveRoute(parts, session.can);
+  const Screen = route.allowed ? SCREENS[route.module.key] : null;
   return (
     <Layout path={path}>
       <Suspense fallback={<Loading />}>
-        {Screen ? <Screen parts={parts.slice(1)} /> : <ErrorNote error={{ message: 'This screen is not available for your role.' }} />}
+        {Screen ? <Screen parts={route.rest} /> : <ErrorNote error={{ message: route.module ? 'This screen is not available for your role.' : 'This page does not exist.' }} />}
       </Suspense>
     </Layout>
   );
@@ -65,13 +68,18 @@ function Shell() {
 export default function App() {
   const [db, setDb] = useState({ status: 'initializing' });
   useEffect(() => {
-    initDatabase().then(({ db: handle }) => setDb({ status: 'ready', handle }), (error) => setDb({ status: 'error', error }));
+    initDatabase().then(async ({ db: handle, files }) => {
+      // Before any screen can capture or sync: requeue operations a closed/crashed page left 'processing',
+      // and remove media files left by a capture whose transaction failed.
+      await recoverAfterStart({ db: handle, files });
+      setDb({ status: 'ready', handle, files });
+    }, (error) => setDb({ status: 'error', error }));
   }, []);
 
   if (db.status === 'initializing') return <Loading label="Starting Swachh Safar…" />;
   if (db.status === 'error') return <Register />; // Register reports the database failure itself.
   return (
-    <SessionProvider db={db.handle}>
+    <SessionProvider db={db.handle} files={db.files}>
       <Shell />
     </SessionProvider>
   );

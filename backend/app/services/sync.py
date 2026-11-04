@@ -8,6 +8,8 @@ from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.errors import AppError, Conflict
+from app.models.base import TZDateTime
+from app.sqlcompat import days_ago_date
 from app.models import (
     ComplaintCategory,
     ComplaintDepartment,
@@ -124,7 +126,7 @@ def get_operation(db: Session, p: Principal, op_id: uuid.UUID) -> dict | None:
 
 
 def changes(db: Session, p: Principal, since: datetime | None) -> dict:
-    cursor = db.scalar(select(func.now()))
+    cursor = db.scalar(select(func.now(type_=TZDateTime())))
     after = since - CURSOR_OVERLAP if since else None
     divisions = p.scope_divisions()
 
@@ -141,7 +143,7 @@ def changes(db: Session, p: Principal, since: datetime | None) -> dict:
     div_rows = db.scalars(select(Division).where(Division.id.in_(divisions), *newer(Division.updated_at))).all()
 
     jstmt = select(Journey).options(selectinload(Journey.coaches)).where(
-        Journey.division_id.in_(divisions), Journey.end_date >= func.current_date() - 7)
+        Journey.division_id.in_(divisions), Journey.end_date >= days_ago_date(db, 7))
     full_divs = [d for d in divisions if p.has("journeys.read_all", d)]
     involved = or_(Journey.supervisor_id == p.id, Journey.id.in_(select(StaffAllocation.journey_id).where(StaffAllocation.user_id == p.id)))
     jstmt = jstmt.where(or_(Journey.division_id.in_(full_divs), involved) if full_divs else involved)

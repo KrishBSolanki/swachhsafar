@@ -2,10 +2,10 @@ import uuid
 from datetime import datetime
 from enum import StrEnum
 
-from sqlalchemy import BigInteger, DateTime, ForeignKey, String
+from sqlalchemy import BigInteger, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base, Timestamps, UUIDPk, str_enum
+from app.models.base import Base, Timestamps, UUIDPk, str_enum, TZDateTime
 
 
 class MediaKind(StrEnum):
@@ -39,7 +39,7 @@ class MediaObject(UUIDPk, Timestamps, Base):
     storage_path: Mapped[str | None] = mapped_column(String(300), unique=True)
     status: Mapped[MediaStatus] = mapped_column(str_enum(MediaStatus, 10), nullable=False, default=MediaStatus.PENDING)
     rejection_reason: Mapped[str | None] = mapped_column(String(200))
-    uploaded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    uploaded_at: Mapped[datetime | None] = mapped_column(TZDateTime())
 
     @property
     def upload_url(self) -> str:

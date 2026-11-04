@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { useResource, useSession, ROLE_NAMES } from '../../app/session.jsx';
 import { DivisionPicker, useDivision } from '../../app/division.jsx';
 import { useNotify } from '../../app/Layout.jsx';
+import { useSave } from './masters/common.jsx';
+import QuestionBanks from './masters/QuestionBanks.jsx';
+import { Categories, Departments } from './masters/ComplaintMasters.jsx';
+import InventoryItems from './masters/InventoryItems.jsx';
+import DivisionPolicy from './masters/DivisionPolicy.jsx';
 import { Badge, DataState, Dialog, ErrorNote, Field, PageHeader, Panel, Select, SubmitBar, Table, Tabs, label } from '../../components/ui.jsx';
 import { PlusIcon } from '../../components/Icons.jsx';
 
@@ -13,26 +18,6 @@ export function parseCoaches(text) {
   });
 }
 const coachText = (coaches) => coaches.map((c) => `${c.code}${c.classification === 'AC' ? ' AC' : ''}`).join(', ');
-
-function useSave(onDone) {
-  const notify = useNotify();
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState(null);
-  const run = async (fn, ok) => {
-    setBusy(true);
-    setError(null);
-    try {
-      await fn();
-      notify('success', ok);
-      onDone();
-    } catch (e) {
-      setError(e);
-    } finally {
-      setBusy(false);
-    }
-  };
-  return { busy, error, run };
-}
 
 function TrainForm({ train, divisionId, onClose, onSaved }) {
   const { api } = useSession();
@@ -81,15 +66,16 @@ function TrainForm({ train, divisionId, onClose, onSaved }) {
 }
 
 function Trains({ divisionId }) {
-  const { can } = useSession();
+  const { canIn } = useSession();
+  const manage = canIn('trains.manage', divisionId);
   const res = useResource('/trains', { division_id: divisionId, page_size: 200 });
   const [edit, setEdit] = useState(null);
   const done = () => { setEdit(null); res.reload(); };
   return (
-    <Panel title="Trains & coaches" actions={can('trains.manage') && <button type="button" className="btn-secondary" onClick={() => setEdit('new')}><PlusIcon /> Add train</button>}>
+    <Panel title="Trains & coaches" actions={manage && <button type="button" className="btn-secondary" onClick={() => setEdit('new')}><PlusIcon /> Add train</button>}>
       <DataState res={res} empty="No trains configured for this division.">
         {(page) => (
-          <Table rows={page.items} onRowClick={can('trains.manage') ? setEdit : undefined} columns={[
+          <Table rows={page.items} onRowClick={manage ? setEdit : undefined} columns={[
             { key: 'train_no', label: 'Train', render: (t) => <><span className="font-semibold">{t.train_no}</span><span className="block text-xs text-slate-500">{t.name}</span></> },
             { key: 'coaches', label: 'Coaches', render: (t) => <span className="text-xs">{coachText(t.coaches)}</span> },
             { key: 'rounds', label: 'Rounds/day', render: (t) => t.inspection_rounds_per_day },
@@ -127,7 +113,8 @@ function UserForm({ divisionId, onClose, onSaved }) {
 }
 
 function Users({ divisionId }) {
-  const { can, api } = useSession();
+  const { canIn, api } = useSession();
+  const manage = canIn('users.manage', divisionId);
   const notify = useNotify();
   const [q, setQ] = useState('');
   const res = useResource('/users', { division_id: divisionId, q, page_size: 200 });
@@ -141,7 +128,7 @@ function Users({ divisionId }) {
     }
   }
   return (
-    <Panel title="Users" actions={can('users.manage') && <button type="button" className="btn-secondary" onClick={() => setCreating(true)}><PlusIcon /> Add user</button>}>
+    <Panel title="Users" actions={manage && <button type="button" className="btn-secondary" onClick={() => setCreating(true)}><PlusIcon /> Add user</button>}>
       <input className="input mb-3 h-10" placeholder="Search name or employee ID" value={q} onChange={(e) => setQ(e.target.value)} />
       <DataState res={res} empty="No users found.">
         {(page) => (
@@ -149,7 +136,7 @@ function Users({ divisionId }) {
             { key: 'name', label: 'Name', render: (u) => <><span className="font-medium">{u.name}</span><span className="block text-xs text-slate-500">{u.emp_id} · {u.email ?? 'no email'}</span></> },
             { key: 'role', label: 'Role', render: (u) => ROLE_NAMES[u.role_id] },
             { key: 'firebase_linked', label: 'Sign-in', render: (u) => <Badge tone={u.firebase_linked ? 'green' : 'amber'}>{u.firebase_linked ? 'Linked' : 'Not linked'}</Badge> },
-            { key: 'status', label: 'Status', render: (u) => can('users.manage')
+            { key: 'status', label: 'Status', render: (u) => manage
               ? <button type="button" onClick={() => toggle(u)}><Badge tone={u.status === 'active' ? 'green' : 'slate'}>{label(u.status)}</Badge></button>
               : <Badge tone={u.status === 'active' ? 'green' : 'slate'}>{label(u.status)}</Badge> },
           ]} />
@@ -198,6 +185,12 @@ export default function Masters() {
     (can('trains.read') || can('trains.manage')) && { value: 'trains', label: 'Trains & coaches' },
     can('users.read') && { value: 'users', label: 'Users' },
     { value: 'divisions', label: 'Divisions' },
+    // Readable by every member of the division (backend list endpoints); changes need the manage permission.
+    { value: 'questions', label: 'Question banks' },
+    { value: 'categories', label: 'Complaint categories' },
+    { value: 'departments', label: 'Complaint departments' },
+    { value: 'items', label: 'Inventory items' },
+    { value: 'policy', label: 'Division policy' },
   ].filter(Boolean);
   const [tab, setTab] = useState(tabs[0].value);
   return (
@@ -207,6 +200,11 @@ export default function Masters() {
       {tab === 'trains' && <Trains divisionId={division.divisionId} />}
       {tab === 'users' && <Users divisionId={division.divisionId} />}
       {tab === 'divisions' && <Divisions />}
+      {tab === 'questions' && <QuestionBanks divisionId={division.divisionId} />}
+      {tab === 'categories' && <Categories divisionId={division.divisionId} />}
+      {tab === 'departments' && <Departments divisionId={division.divisionId} />}
+      {tab === 'items' && <InventoryItems divisionId={division.divisionId} />}
+      {tab === 'policy' && <DivisionPolicy divisionId={division.divisionId} divisionName={division.current?.name} />}
     </>
   );
 }

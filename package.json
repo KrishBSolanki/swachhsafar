@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "cross-env VITE_DEMO_MODE=false vite build",
+    "build:demo": "cross-env VITE_DEMO_MODE=true vite build --outDir dist-demo --emptyOutDir",
     "preview": "vite preview --port 4173 --strictPort",
     "preview:lan": "cross-env PREVIEW_HTTPS=1 vite preview --host --port 4173 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:offline": "playwright test -c playwright.offline.config.js",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg",
     "test:live": "cross-env LIVE_FIREBASE=1 vitest run tests/integration"
   },

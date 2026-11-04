@@ -33,6 +33,7 @@ from app.models import (
     VerificationStatus,
 )
 from app.security.principal import Principal
+from app.sqlcompat import date_text, hours_between
 from app.services.journeys import get_journey, journey_state, state_clause
 from app.timeutil import IST, today_ist, utcnow
 
@@ -110,7 +111,7 @@ def attendance_report(db: Session, p: Principal, *, division_id, date_from: date
             .join(User, User.id == Attendance.employee_id)
         group = [Attendance.employee_id, User.name, User.emp_id]
     elif group_by == "journey":
-        stmt = select(Attendance.journey_id, func.concat(Train.train_no, " / ", func.to_char(Journey.journey_date, "YYYY-MM-DD"))) \
+        stmt = select(Attendance.journey_id, func.concat(Train.train_no, " / ", date_text(db, Journey.journey_date))) \
             .join(Journey, Journey.id == Attendance.journey_id).join(Train, Train.id == Journey.train_id)
         group = [Attendance.journey_id, Journey.journey_date, Train.train_no]
     else:
@@ -256,7 +257,7 @@ def complaint_report(db: Session, p: Principal, *, division_id, date_from: date,
                func.count().filter(Complaint.status != ComplaintStatus.COMPLETED))
         .join(ComplaintCategory, ComplaintCategory.id == Complaint.category_id).where(*scope)
         .group_by(ComplaintCategory.id, ComplaintCategory.name).order_by(func.count().desc()))]
-    avg_hours = db.scalar(select(func.avg(func.extract("epoch", Complaint.closed_at - Complaint.server_timestamp) / 3600))
+    avg_hours = db.scalar(select(func.avg(hours_between(db, Complaint.closed_at, Complaint.server_timestamp)))
                           .where(*scope, Complaint.closed_at.is_not(None)))
     return dict(total=sum(by_status.values()), by_status={k.value: v for k, v in by_status.items()}, overdue=overdue,
                 by_category=by_cat, avg_resolution_hours=round(float(avg_hours), 2) if avg_hours is not None else None)

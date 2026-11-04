@@ -4,10 +4,10 @@ import uuid
 from datetime import datetime
 from enum import IntEnum, StrEnum
 
-from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Index, Integer, String, Text, UniqueConstraint, func
+from sqlalchemy import CheckConstraint, ForeignKey, Index, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base, GeoPoint, Timestamps, str_enum
+from app.models.base import Base, GeoPoint, Timestamps, str_enum, TZDateTime
 
 
 class AttendanceStage(IntEnum):
@@ -36,14 +36,14 @@ class CapturedRecord(GeoPoint, Timestamps):
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
     division_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("divisions.id"), nullable=False, index=True)
     journey_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("journeys.id"), nullable=False, index=True)
-    device_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    server_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    device_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
+    server_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
     created_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     verification_status: Mapped[VerificationStatus] = mapped_column(
         str_enum(VerificationStatus, 10), nullable=False, default=VerificationStatus.SUBMITTED
     )
     verified_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
-    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    verified_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     review_remarks: Mapped[str | None] = mapped_column(String(500))
     sync_op_id: Mapped[uuid.UUID | None] = mapped_column()
     payload_hash: Mapped[str] = mapped_column(String(64), nullable=False)

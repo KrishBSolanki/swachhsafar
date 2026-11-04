@@ -4,7 +4,7 @@ from sqlalchemy import text
 
 from app.api.v1 import complaints, feedback, inventory, journeys, media, operations, org, reports, sync, trains
 from app.config import get_settings
-from app.db import get_engine
+from app.db import WriteIntentMiddleware, get_engine
 from app.errors import install_error_handlers
 
 
@@ -17,6 +17,7 @@ def create_app() -> FastAPI:
         openapi_url="/api/v1/openapi.json",
     )
     install_error_handlers(app)
+    app.add_middleware(WriteIntentMiddleware)  # SQLite: write requests take the write lock up front
     if settings.cors_origins:
         app.add_middleware(
             CORSMiddleware,

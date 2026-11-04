@@ -6,6 +6,8 @@ from datetime import timedelta
 
 from sqlalchemy import func, or_, select, update
 from sqlalchemy.exc import IntegrityError
+
+from app.sqlcompat import is_unique_violation
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import get_settings
@@ -182,7 +184,7 @@ def _commit_transition(db: Session) -> None:
         db.commit()
     except IntegrityError as exc:
         db.rollback()
-        if getattr(exc.orig, "sqlstate", None) == "23505":
+        if is_unique_violation(exc):
             raise Conflict("Another verified feedback already uses this PNR or mobile", code="duplicate_feedback") from exc
         raise
 

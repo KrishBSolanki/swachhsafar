@@ -10,15 +10,23 @@ export function createOutboxRepository(db) {
     insertStatement(entry) {
       return {
         sql: `INSERT INTO sync_outbox (id, entity_type, entity_id, operation, payload, retry_count,
-                sync_status, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, 0, 'pending', ?, ?)`,
+                sync_status, created_at, updated_at, owner_user_id)
+              VALUES (?, ?, ?, ?, ?, 0, 'pending', ?, ?, ?)`,
         params: [entry.id, entry.entity_type, entry.entity_id, entry.operation,
-          JSON.stringify(entry.payload), entry.created_at, entry.created_at],
+          JSON.stringify(entry.payload), entry.created_at, entry.created_at, entry.owner_user_id ?? null],
       };
     },
 
     // `entityType` scopes a query to one queue: 'user' registrations or 'operation' records.
-    async listPending(entityType = null) {
+    // `ownerId` limits operations to one user's entries (plus unattributed pre-Phase 2 entries).
+    async listPending(entityType = null, { ownerId } = {}) {
+      if (ownerId !== undefined) {
+        return db.query(
+          `SELECT * FROM sync_outbox WHERE sync_status = 'pending' AND entity_type = ?
+             AND (owner_user_id = ? OR owner_user_id IS NULL) ORDER BY created_at ASC`,
+          [entityType, ownerId],
+        );
+      }
       return db.query(
         `SELECT * FROM sync_outbox WHERE sync_status = 'pending' AND (? IS NULL OR entity_type = ?) ORDER BY created_at ASC`,
         [entityType, entityType],
@@ -63,20 +71,35 @@ export function createOutboxRepository(db) {
       return changes === 1;
     },
 
+    // Statement forms of the outcome transitions, so the queue commits them in the SAME transaction as the
+    // record's own sync state (localStore.markOutcome). Readers then never see one without the other.
+    completedStatement(id, now) {
+      return {
+        sql: `UPDATE sync_outbox SET sync_status = 'completed', last_error = NULL, completed_at = ?, updated_at = ? WHERE id = ?`,
+        params: [now, now, id],
+      };
+    },
+    retryStatement(id, { error, now }) {
+      return {
+        sql: `UPDATE sync_outbox SET sync_status = 'pending', retry_count = retry_count + 1, last_error = ?, updated_at = ? WHERE id = ?`,
+        params: [error, now, id],
+      };
+    },
+    failedStatement(id, { error, now }) {
+      return {
+        sql: `UPDATE sync_outbox SET sync_status = 'failed', retry_count = retry_count + 1, last_error = ?, updated_at = ? WHERE id = ?`,
+        params: [error, now, id],
+      };
+    },
+
     async markCompleted(id, now) {
-      return db.run(
-        `UPDATE sync_outbox SET sync_status = 'completed', last_error = NULL, completed_at = ?, updated_at = ?
-         WHERE id = ?`,
-        [now, now, id],
-      );
+      const { sql, params } = this.completedStatement(id, now);
+      return db.run(sql, params);
     },
 
     async markRetry(id, { error, now }) {
-      return db.run(
-        `UPDATE sync_outbox SET sync_status = 'pending', retry_count = retry_count + 1, last_error = ?,
-           updated_at = ? WHERE id = ?`,
-        [error, now, id],
-      );
+      const { sql, params } = this.retryStatement(id, { error, now });
+      return db.run(sql, params);
     },
 
     // Returns a claimed entry to the queue without counting an attempt (e.g. password not supplied).
@@ -88,11 +111,8 @@ export function createOutboxRepository(db) {
     },
 
     async markFailed(id, { error, now }) {
-      return db.run(
-        `UPDATE sync_outbox SET sync_status = 'failed', retry_count = retry_count + 1, last_error = ?,
-           updated_at = ? WHERE id = ?`,
-        [error, now, id],
-      );
+      const { sql, params } = this.failedStatement(id, { error, now });
+      return db.run(sql, params);
     },
 
     async resetFailed(id, now) {
@@ -114,6 +134,12 @@ export function createOutboxRepository(db) {
     async getMeta(key) {
       const [row] = await db.query('SELECT value FROM sync_meta WHERE key = ?', [key]);
       return row?.value ?? null;
+    },
+
+    // { value, updated_at } or null: for cached responses that must say when they were loaded.
+    async getMetaEntry(key) {
+      const [row] = await db.query('SELECT value, updated_at FROM sync_meta WHERE key = ?', [key]);
+      return row ?? null;
     },
 
     async setMeta(key, value, now) {

@@ -18,6 +18,9 @@ ROLES = [(1, "super_admin", "Super Admin", 1), (2, "admin", "Admin", 2), (3, "ma
          (4, "supervisor", "Supervisor/EHK", 4), (5, "janitor", "Janitor", 5), (6, "contractor", "Contractor", 6)]
 
 
+APPEND_ONLY = ("inventory_transactions", "audit_logs", "complaint_history")
+
+
 def upgrade() -> None:
     from app.security.catalog import DEFAULT_GRANTS, PERMISSIONS
 
@@ -31,21 +34,33 @@ def upgrade() -> None:
     op.bulk_insert(grants, [dict(id=uuid.uuid4(), role_id=int(role), permission_code=code, division_id=None, effect="allow")
                             for role, codes in DEFAULT_GRANTS.items() for code in sorted(codes)])
 
+    if op.get_bind().dialect.name == "sqlite":
+        # Same guarantee on the local SQLite deployment: any UPDATE or DELETE of these rows is aborted.
+        for table in APPEND_ONLY:
+            for event in ("UPDATE", "DELETE"):
+                op.execute(f"CREATE TRIGGER {table}_append_only_{event.lower()} BEFORE {event} ON {table} "
+                           f"BEGIN SELECT RAISE(ABORT, '{table} is append-only'); END")
+        return
     op.execute("""
         CREATE FUNCTION forbid_mutation() RETURNS trigger LANGUAGE plpgsql AS $$
         BEGIN
             RAISE EXCEPTION '% is append-only', TG_TABLE_NAME USING ERRCODE = 'restrict_violation';
         END $$;
     """)
-    for table in ("inventory_transactions", "audit_logs", "complaint_history"):
+    for table in APPEND_ONLY:
         op.execute(f"CREATE TRIGGER {table}_append_only BEFORE UPDATE OR DELETE ON {table} "
                    f"FOR EACH ROW EXECUTE FUNCTION forbid_mutation()")
 
 
 def downgrade() -> None:
-    for table in ("inventory_transactions", "audit_logs", "complaint_history"):
-        op.execute(f"DROP TRIGGER IF EXISTS {table}_append_only ON {table}")
-    op.execute("DROP FUNCTION IF EXISTS forbid_mutation()")
+    if op.get_bind().dialect.name == "sqlite":
+        for table in APPEND_ONLY:
+            for event in ("update", "delete"):
+                op.execute(f"DROP TRIGGER IF EXISTS {table}_append_only_{event}")
+    else:
+        for table in APPEND_ONLY:
+            op.execute(f"DROP TRIGGER IF EXISTS {table}_append_only ON {table}")
+        op.execute("DROP FUNCTION IF EXISTS forbid_mutation()")
     op.execute("DELETE FROM role_permissions")
     op.execute("DELETE FROM permissions")
     op.execute("DELETE FROM roles")

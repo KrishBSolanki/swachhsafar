@@ -25,7 +25,7 @@ function errorMessage(body, status) {
 }
 
 export function createApiClient({ getToken, base = API_BASE, fetchImpl = (...a) => fetch(...a) }) {
-  async function request(method, path, { body, query, raw, headers = {} } = {}) {
+  async function request(method, path, { body, query, raw, headers = {}, blob = false } = {}) {
     const url = new URL(base + path, typeof location !== 'undefined' ? location.origin : 'http://localhost');
     Object.entries(query ?? {}).forEach(([k, v]) => {
       if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, v);
@@ -45,6 +45,7 @@ export function createApiClient({ getToken, base = API_BASE, fetchImpl = (...a) 
       throw new ApiError(0, 'network_error', 'Cannot reach the Swachh Safar server.', e?.message);
     }
     if (res.status === 204) return null;
+    if (blob && res.ok) return res.blob();
     const data = await res.json().catch(() => null);
     if (!res.ok) {
       const err = data?.error ?? data;
@@ -64,5 +65,7 @@ export function createApiClient({ getToken, base = API_BASE, fetchImpl = (...a) 
     put: (path, body) => request('PUT', path, { body }),
     del: (path) => request('DELETE', path),
     putRaw: (path, raw, contentType) => request('PUT', path, { raw, headers: { 'Content-Type': contentType } }),
+    // Authenticated binary GET (media served by the API itself, e.g. /media/{id}/file).
+    getBlob: (path) => request('GET', path, { blob: true }),
   };
 }

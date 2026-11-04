@@ -6,7 +6,6 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     Date,
-    DateTime,
     ForeignKey,
     Index,
     Integer,
@@ -17,7 +16,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models.base import Base, Timestamps, UUIDPk, str_enum
+from app.models.base import Base, Timestamps, UUIDPk, str_enum, TZDateTime
 from app.models.org import User
 from app.models.trains import CoachClass, Train
 
@@ -69,7 +68,7 @@ class Journey(UUIDPk, Timestamps, Base):
     supervisor_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False, index=True)
     created_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     status: Mapped[JourneyStatus] = mapped_column(str_enum(JourneyStatus, 10), nullable=False, default=JourneyStatus.PLANNED)
-    cancelled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    cancelled_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     cancelled_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
     cancel_reason: Mapped[str | None] = mapped_column(String(300))
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
@@ -104,7 +103,7 @@ class StaffAllocation(UUIDPk, Timestamps, Base):
             "journey_id",
             "user_id",
             unique=True,
-            postgresql_where=text("removed_at IS NULL"),
+            postgresql_where=text("removed_at IS NULL"), sqlite_where=text("removed_at IS NULL"),
         ),
     )
 
@@ -113,7 +112,7 @@ class StaffAllocation(UUIDPk, Timestamps, Base):
     role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"), nullable=False)
     division_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("divisions.id"), nullable=False)
     allocated_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
-    removed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    removed_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     removed_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
 
     user: Mapped[User] = relationship(foreign_keys=[user_id], lazy="joined")

@@ -199,5 +199,8 @@ export function createDemoApi() {
     put: (path) => request('PUT', path),
     del: (path) => request('DELETE', path),
     putRaw: (path) => request('PUT', path),
+    getBlob: async () => {
+      throw new ApiError(404, 'demo_mode', 'Demo mode: no media files are available.');
+    },
   };
 }

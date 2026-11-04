@@ -2,10 +2,10 @@ import uuid
 from datetime import datetime
 from enum import StrEnum
 
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Numeric, String, UniqueConstraint, func
+from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Index, Numeric, String, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base, Timestamps, UUIDPk, str_enum
+from app.models.base import Base, Timestamps, UUIDPk, str_enum, TZDateTime
 
 
 class Unit(StrEnum):
@@ -49,5 +49,5 @@ class InventoryTransaction(Base):
     quantity: Mapped[float] = mapped_column(Numeric(12, 3, asdecimal=False), nullable=False)
     remarks: Mapped[str | None] = mapped_column(String(300))
     created_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
     payload_hash: Mapped[str] = mapped_column(String(64), nullable=False)

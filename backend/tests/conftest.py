@@ -1,5 +1,8 @@
 """Tests run against a real PostgreSQL 16 (embedded via pgserver) migrated with Alembic. External services are
-replaced by in-process fakes: Firebase token verification, SMS gateway, PNR API. Storage uses the local backend."""
+replaced by in-process fakes: Firebase token verification, SMS gateway, PNR API. Storage uses the local backend.
+
+TEST_DB=sqlite runs the same suite against SQLite (the local single-PC deployment): the database is migrated
+once into a template file with Alembic, and every test starts from a fresh copy of it."""
 
 import os
 import shutil
@@ -24,9 +27,18 @@ def _start_postgres():
     return server, base
 
 
-_SERVER, _BASE_URI = _start_postgres()
+SQLITE = os.environ.get("TEST_DB") == "sqlite"
+_SQLITE_DB = _ROOT / "sqlite" / "swachh_test.db"
+_SQLITE_TEMPLATE = _ROOT / "sqlite" / "template.db"
+
+if SQLITE:
+    _SERVER, _BASE_URI = None, None
+    _DATABASE_URL = f"sqlite:///{_SQLITE_DB.as_posix()}"
+else:
+    _SERVER, _BASE_URI = _start_postgres()
+    _DATABASE_URL = f"{_BASE_URI}/swachh_test"
 os.environ.update(
-    DATABASE_URL=f"{_BASE_URI}/swachh_test",
+    DATABASE_URL=_DATABASE_URL,
     ENVIRONMENT="test",
     OTP_PEPPER="test-pepper-" + "x" * 40,
     STORAGE_BACKEND="local",
@@ -47,7 +59,13 @@ def run_migrations(url: str, target: str = "head", direction: str = "upgrade") -
 
 @pytest.fixture(scope="session")
 def pg():
+    if SQLITE:
+        pytest.skip("PostgreSQL-specific test (TEST_DB=sqlite)")
     return _SERVER, _BASE_URI
+
+
+def _sqlite_files(path: Path) -> list[Path]:
+    return [path, path.with_name(path.name + "-wal"), path.with_name(path.name + "-shm")]
 
 
 @pytest.fixture(scope="session")
@@ -56,10 +74,28 @@ def engine():
     from app.db import get_engine
 
     get_settings.cache_clear()
-    run_migrations(os.environ["DATABASE_URL"])
+    if SQLITE:
+        _SQLITE_DB.parent.mkdir(parents=True, exist_ok=True)
+        for f in _sqlite_files(_SQLITE_TEMPLATE) + _sqlite_files(_SQLITE_DB):
+            f.unlink(missing_ok=True)
+        run_migrations(f"sqlite:///{_SQLITE_TEMPLATE.as_posix()}")
+        _checkpoint(_SQLITE_TEMPLATE)
+        shutil.copyfile(_SQLITE_TEMPLATE, _SQLITE_DB)
+    else:
+        run_migrations(os.environ["DATABASE_URL"])
     shutil.rmtree(_MEDIA, ignore_errors=True)
     yield get_engine()
     get_engine().dispose()
+
+
+def _checkpoint(path: Path) -> None:
+    """Fold the WAL into the main file so the template is a single self-contained file."""
+    import sqlite3
+
+    con = sqlite3.connect(path)
+    con.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+    con.execute("PRAGMA journal_mode = DELETE")
+    con.close()
 
 
 KEEP = {"roles", "permissions", "alembic_version"}
@@ -81,6 +117,17 @@ def clean_db(engine, seeded_grants):
     from app.models import Base
     from app.security.ratelimit import limiter
 
+    if SQLITE:
+        # A fresh copy of the migrated template (the append-only triggers forbid DELETE, as TRUNCATE-less
+        # SQLite would need): close every pooled connection first so no handle points at the old file.
+        engine.dispose()
+        for f in _sqlite_files(_SQLITE_DB):
+            f.unlink(missing_ok=True)
+        shutil.copyfile(_SQLITE_TEMPLATE, _SQLITE_DB)
+        limiter.reset()
+        yield
+        engine.dispose()
+        return
     tables = [t.name for t in Base.metadata.sorted_tables if t.name not in KEEP]
     with engine.begin() as conn:
         conn.execute(text(f"TRUNCATE {', '.join(tables)} RESTART IDENTITY"))

@@ -6,7 +6,6 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     Date,
-    DateTime,
     ForeignKey,
     Index,
     Integer,
@@ -19,7 +18,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models.base import Base, GeoPoint, Timestamps, UUIDPk, str_enum
+from app.models.base import Base, GeoPoint, Timestamps, UUIDPk, str_enum, TZDateTime
 from app.models.org import JSONType
 from app.models.trains import CoachClass
 
@@ -31,9 +30,9 @@ class QuestionBank(UUIDPk, Timestamps, Base):
     __table_args__ = (
         CheckConstraint("scale_min < scale_max", name="scale_order"),
         Index("uq_question_banks_active_division", "division_id", "audience", unique=True,
-              postgresql_where=text("is_active AND division_id IS NOT NULL")),
+              postgresql_where=text("is_active AND division_id IS NOT NULL"), sqlite_where=text("is_active AND division_id IS NOT NULL")),
         Index("uq_question_banks_active_default", "audience", unique=True,
-              postgresql_where=text("is_active AND division_id IS NULL")),
+              postgresql_where=text("is_active AND division_id IS NULL"), sqlite_where=text("is_active AND division_id IS NULL")),
     )
 
     division_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("divisions.id"))
@@ -96,9 +95,9 @@ COUNTED_STATUSES = "status IN ('verified','completed')"
 class PassengerFeedback(GeoPoint, Timestamps, Base):
     __tablename__ = "passenger_feedback"
     __table_args__ = (
-        Index("uq_passenger_feedback_pnr", "journey_id", "pnr", unique=True, postgresql_where=text(COUNTED_STATUSES)),
+        Index("uq_passenger_feedback_pnr", "journey_id", "pnr", unique=True, postgresql_where=text(COUNTED_STATUSES), sqlite_where=text(COUNTED_STATUSES)),
         Index("uq_passenger_feedback_mobile_day", "journey_id", "mobile", "feedback_date", unique=True,
-              postgresql_where=text(COUNTED_STATUSES)),
+              postgresql_where=text(COUNTED_STATUSES), sqlite_where=text(COUNTED_STATUSES)),
         CheckConstraint("pnr IS NULL OR pnr ~ '^[0-9]{10}$'", name="pnr_format"),
         CheckConstraint("mobile ~ '^[6-9][0-9]{9}$'", name="mobile_format"),
         CheckConstraint("journey_day >= 1", name="day_positive"),
@@ -123,13 +122,13 @@ class PassengerFeedback(GeoPoint, Timestamps, Base):
     )
     pnr_status: Mapped[PnrStatus] = mapped_column(str_enum(PnrStatus, 14), nullable=False)
     pnr_details: Mapped[dict | None] = mapped_column(JSONType)
-    pnr_checked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    pnr_checked_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     otp_status: Mapped[OtpStatus] = mapped_column(str_enum(OtpStatus, 14), nullable=False)
     void_reason: Mapped[str | None] = mapped_column(String(200))
-    device_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    server_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    device_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
+    server_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
+    verified_at: Mapped[datetime | None] = mapped_column(TZDateTime())
+    completed_at: Mapped[datetime | None] = mapped_column(TZDateTime())
     collected_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     payload_hash: Mapped[str] = mapped_column(String(64), nullable=False)
 
@@ -156,11 +155,11 @@ class OtpChallenge(UUIDPk, Timestamps, Base):
     feedback_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("passenger_feedback.id", ondelete="CASCADE"), unique=True, nullable=False)
     mobile: Mapped[str] = mapped_column(String(10), nullable=False)
     code_hash: Mapped[str] = mapped_column(String(64), nullable=False)
-    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
     attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     send_count: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
-    last_sent_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    last_sent_at: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
+    verified_at: Mapped[datetime | None] = mapped_column(TZDateTime())
 
 
 class RailwayFeedback(GeoPoint, Timestamps, Base):
@@ -179,9 +178,9 @@ class RailwayFeedback(GeoPoint, Timestamps, Base):
     comments: Mapped[str | None] = mapped_column(Text)
     verification_status: Mapped[str] = mapped_column(String(10), nullable=False, default="submitted")
     verified_by_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
-    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    device_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    server_timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    verified_at: Mapped[datetime | None] = mapped_column(TZDateTime())
+    device_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), nullable=False)
+    server_timestamp: Mapped[datetime] = mapped_column(TZDateTime(), server_default=func.now(), nullable=False)
     created_by_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
     payload_hash: Mapped[str] = mapped_column(String(64), nullable=False)
 
